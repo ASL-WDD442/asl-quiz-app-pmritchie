@@ -45,29 +45,28 @@
 
 ## API Routes
 
-|     Method | Path               | Description                           |
-| ---------: | ------------------ | ------------------------------------- |
-|            | **PUBLIC**         |                                       |
-|    **GET** | /quizzes/public    | List all the quizzes that are public  |
-|            | **Quizzes**        |                                       |
-|    **GET** | /quizzes           | List all the quizzes the user created |
-|   **POST** | /quizzes           | Create a new quiz                     |
-|    **GET** | /quizzes/:id       | The details of one quiz               |
-|    **PUT** | /quizzes/:id       | Edit a quiz                           |
-| **DELETE** | /quizzes/:id       | Remove a quiz                         |
-|            | **Questions**      |                                       |
-|    **GET** | /questions/:quizId
-| Get all the questions for a quiz      |
-|   **POST** | /questions         | Create a new question                 |
-|    **GET** | /questions/:id     | Get one question                      |
-|    **PUT** | /questions/:id     | Update an question                    |
-| **DELETE** | /questions/:id     | Delete an question                    |
-|            | **Choices**        |                                       |
-|    **GET** | /choices/:question | Get all the choices for a question    |
-|   **POST** | /choices           | Create a new choice                   |
-|    **GET** | /choices/:id       | Get one choice                        |
-|    **PUT** | /choices/:id       | Update an choice                      |
-| **DELETE** | /choices/:id       | Delete an choice                      |
+|     Method | Path                       | Description                           |
+| ---------: | -------------------------- | ------------------------------------- |
+|            | **PUBLIC**                 |                                       |
+|    **GET** | /quizzes/public            | List all the quizzes that are public  |
+|            | **Quizzes**                |                                       |
+|    **GET** | /quizzes                   | List all the quizzes the user created |
+|   **POST** | /quizzes                   | Create a new quiz                     |
+|    **GET** | /quizzes/:id               | The details of one quiz               |
+|    **PUT** | /quizzes/:id               | Edit a quiz                           |
+| **DELETE** | /quizzes/:id               | Remove a quiz                         |
+|            | **Questions**              |                                       |
+|    **GET** | /questions/list/:quizId    | Get all the questions for a quiz      |
+|   **POST** | /questions                 | Create a new question                 |
+|    **GET** | /questions/:id             | Get one question                      |
+|    **PUT** | /questions/:id             | Update an question                    |
+| **DELETE** | /questions/:id             | Delete an question                    |
+|            | **Choices**                |                                       |
+|    **GET** | /choices/list/:questionId  | Get all the choices for a question    |
+|   **POST** | /choices                   | Create a new choice                   |
+|    **GET** | /choices/:id               | Get one choice                        |
+|    **PUT** | /choices/:id               | Update an choice                      |
+| **DELETE** | /choices/:id               | Delete an choice                      |
 
 ## Web Routes
 
