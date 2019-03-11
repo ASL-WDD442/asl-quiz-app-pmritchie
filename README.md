@@ -56,13 +56,13 @@
 |    **PUT** | /quizzes/:id               | Edit a quiz                           |
 | **DELETE** | /quizzes/:id               | Remove a quiz                         |
 |            | **Questions**              |                                       |
-|    **GET** | /questions/list/:quizId    | Get all the questions for a quiz      |
+|    **GET** | /questions/?quizId=        | Get all the questions for a quiz      |
 |   **POST** | /questions                 | Create a new question                 |
 |    **GET** | /questions/:id             | Get one question                      |
 |    **PUT** | /questions/:id             | Update an question                    |
 | **DELETE** | /questions/:id             | Delete an question                    |
 |            | **Choices**                |                                       |
-|    **GET** | /choices/list/:questionId  | Get all the choices for a question    |
+|    **GET** | /choices?questionId=       | Get all the choices for a question    |
 |   **POST** | /choices                   | Create a new choice                   |
 |    **GET** | /choices/:id               | Get one choice                        |
 |    **PUT** | /choices/:id               | Update an choice                      |
