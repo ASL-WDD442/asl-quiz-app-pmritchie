@@ -33,12 +33,12 @@
 - userId
 
 **Questions:**
-
+- id
 - title
 - quizId
 
 **Choices:**
-
+- id
 - value
 - type (correct, incorrect)
 - questionId
