@@ -26,7 +26,6 @@
 ## Models
 
 **Quizzes:**
-
 - id
 - name
 - type (public, private)
@@ -42,6 +41,13 @@
 - value
 - type (correct, incorrect)
 - questionId
+
+**Users:**
+- id
+- username
+- password
+- access_token
+- type
 
 ## API Routes
 
@@ -67,6 +73,11 @@
 |    **GET** | /choices/:id               | Get one choice                        |
 |    **PUT** | /choices/:id               | Update an choice                      |
 | **DELETE** | /choices/:id               | Delete an choice                      |
+|            | **Auth**                   |                                       |
+|   **POST** | /auth/exchange             | Change temp code for access_code      |
+|   **POST** | /auth/signup               | Create user using username and pwd    |
+|   **POST** | /auth/login                | Log user in using username and pwd    |
+
 
 ## Web Routes
 
@@ -74,6 +85,8 @@
 | -------: | ------------------------------ | ---------------------------------------------------------------------- |
 |          | **Public**                     |                                                                        |
 |  **GET** | /                              | Landing Page, list of public quizzes                                   |
+|  **GET** | /login                         | Login Page for oAuth and username password                             |
+|  **GET** | /logout                        | Logs the user out of the system                                        |
 |  **GET** | /quiz/:id                      | List of all the questions & choices with the ability to select answers |
 | **POST** | /quiz/:id                      | Shows results of the quiz                                              |
 |          | **Quizzes**                    |                                                                        |
@@ -102,6 +115,7 @@
 |  Method | Path                           | Description                                                            |
 | ------: | ------------------------------ | ---------------------------------------------------------------------- |
 | **GET** | /                              | Landing Page, list of public quizzes                                   |
+| **GET** | /login                         | Login Page for oAuth and username password                             |
 | **GET** | /quiz/:id                      | List of all the questions & choices with the ability to select answers |
 | **GET** | /admin/quizzes                 | List all the previously created quizzes                                |
 | **GET** | /admin/quizzes/edit/:id        | Edit quiz form                                                         |
