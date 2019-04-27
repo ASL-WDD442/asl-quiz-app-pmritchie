@@ -81,34 +81,34 @@
 
 ## Web Routes
 
-|   Method | Path                           | Description                                                            |
-| -------: | ------------------------------ | ---------------------------------------------------------------------- |
-|          | **Public**                     |                                                                        |
-|  **GET** | /                              | Landing Page, list of public quizzes                                   |
-|  **GET** | /login                         | Login Page for oAuth and username password                             |
-|  **GET** | /logout                        | Logs the user out of the system                                        |
-|  **GET** | /quiz/:id                      | List of all the questions & choices with the ability to select answers |
-| **POST** | /quiz/:id                      | Shows results of the quiz                                              |
-|          | **Quizzes**                    |                                                                        |
-|  **GET** | /admin/quizzes/list            | List all the previously created quizzes                                |
-|  **GET** | /admin/quizzes/:id             | Detail page of quiz                                                    |
-|  **GET** | /admin/quizzes/delete/:id      | Remove a quiz                                                          |
-|  **GET** | /admin/quizzes/edit/:id        | Edit quiz form                                                         |
-| **POST** | /admin/quizzes/edit/:id        | Save changes to a quiz                                                 |
-|  **GET** | /admin/quizzes/new             | Create a quiz form                                                     |
-| **POST** | /admin/quizzes/new             | Save a new quiz                                                        |
-|          | **Question**                   |                                                                        |
-|  **GET** | /admin/questions/delete/:id    | Remove a question                                                      |
-|  **GET** | /admin/questions/edit/:id      | Edit question form                                                     |
-| **POST** | /admin/questions/edit/:id      | Save changes to a question                                             |
-|  **GET** | /admin/questions/new/:quizId   | Create a question form                                                 |
-| **POST** | /admin/questions/new/:quizId   | Save a new question                                                    |
-|          | **Choices**                    |                                                                        |
-|  **GET** | /admin/choices/delete/:id      | Delete an choice                                                       |
-|  **GET** | /admin/choices/edit/:id        | Edit choice form                                                       |
-| **POST** | /admin/choices/edit/:id        | Save changes to a choice                                               |
-|  **GET** | /admin/choices/new/:questionId | Create a choice form                                                   |
-| **POST** | /admin/choices/new/:questionId | Save a new choice                                                      |
+|   Method | Path                            | Description                                                            |
+| -------: | ------------------------------- | ---------------------------------------------------------------------- |
+|          | **Public**                      |                                                                        |
+|  **GET** | /                               | Landing Page, list of public quizzes                                   |
+|  **GET** | /login                          | Login Page for oAuth and username password                             |
+|  **GET** | /logout                         | Logs the user out of the system                                        |
+|  **GET** | /quiz/:id                       | List of all the questions & choices with the ability to select answers |
+| **POST** | /quiz/:id                       | Shows results of the quiz                                              |
+|          | **Quizzes**                     |                                                                        |
+|  **GET** | /admin/quizzes/list             | List all the previously created quizzes                                |
+|  **GET** | /admin/quizzes/:id              | Detail page of quiz                                                    |
+|  **GET** | /admin/quizzes/delete/:quizId   | Remove a quiz                                                          |
+|  **GET** | /admin/quizzes/edit/:quizId     | Edit quiz form                                                         |
+| **POST** | /admin/quizzes/edit/:quizId     | Save changes to a quiz                                                 |
+|  **GET** | /admin/quizzes/new              | Create a quiz form                                                     |
+| **POST** | /admin/quizzes/new              | Save a new quiz                                                        |
+|          | **Question**                    |                                                                        |
+|  **GET** | /admin/questions/delete/:questionId | Remove a question                                                  |
+|  **GET** | /admin/questions/edit/:questionId   | Edit question form                                                 |
+| **POST** | /admin/questions/edit/:questionId   | Save changes to a question                                         |
+|  **GET** | /admin/questions/new?quizId=    | Create a question form                                                 |
+| **POST** | /admin/questions/new?quizId=    | Save a new question                                                    |
+|          | **Choices**                     |                                                                        |
+|  **GET** | /admin/choices/delete/:choiceId | Delete an choice                                                       |
+|  **GET** | /admin/choices/edit/:choiceId   | Edit choice form                                                       |
+| **POST** | /admin/choices/edit/:choiceId   | Save changes to a choice                                               |
+|  **GET** | /admin/choices/new?questionId=  | Create a choice form                                                   |
+| **POST** | /admin/choices/new?questionId=  | Save a new choice                                                      |
 
 ## React Routes
 
