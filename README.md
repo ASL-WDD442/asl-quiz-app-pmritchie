@@ -86,18 +86,20 @@
 |          | **Public**                      |                                                                        |
 |  **GET** | /                               | Landing Page, list of public quizzes                                   |
 |  **GET** | /login                          | Login Page for oAuth and username password                             |
+|  **GET** | /signup                         | Signup Page for oAuth and username password                            |
 |  **GET** | /logout                         | Logs the user out of the system                                        |
 |  **GET** | /quiz/:id                       | List of all the questions & choices with the ability to select answers |
 | **POST** | /quiz/:id                       | Shows results of the quiz                                              |
 |          | **Quizzes**                     |                                                                        |
 |  **GET** | /admin/quizzes/list             | List all the previously created quizzes                                |
-|  **GET** | /admin/quizzes/:id              | Detail page of quiz                                                    |
+|  **GET** | /admin/quizzes/:id              | Detail page of quiz (shows questions)                                  |
 |  **GET** | /admin/quizzes/delete/:quizId   | Remove a quiz                                                          |
 |  **GET** | /admin/quizzes/edit/:quizId     | Edit quiz form                                                         |
 | **POST** | /admin/quizzes/edit/:quizId     | Save changes to a quiz                                                 |
 |  **GET** | /admin/quizzes/new              | Create a quiz form                                                     |
 | **POST** | /admin/quizzes/new              | Save a new quiz                                                        |
 |          | **Question**                    |                                                                        |
+|  **GET** | /admin/questions/:id .          | Detail page of question (shows choices)                                |
 |  **GET** | /admin/questions/delete/:questionId | Remove a question                                                  |
 |  **GET** | /admin/questions/edit/:questionId   | Edit question form                                                 |
 | **POST** | /admin/questions/edit/:questionId   | Save changes to a question                                         |
@@ -118,8 +120,10 @@
 | **GET** | /login                         | Login Page for oAuth and username password                             |
 | **GET** | /quiz/:id                      | List of all the questions & choices with the ability to select answers |
 | **GET** | /admin/quizzes                 | List all the previously created quizzes                                |
+| **GET** | /admin/quizzes/:id             | Quiz detail page (shows questions)                                     |
 | **GET** | /admin/quizzes/edit/:id        | Edit quiz form                                                         |
 | **GET** | /admin/quizzes/new             | Create a quiz form                                                     |
+| **GET** | /admin/questions/:id           | Question detail page (shows choices)                                   |
 | **GET** | /admin/questions/edit/:id      | Edit question form                                                     |
 | **GET** | /admin/questions/new/:quizId   | Create a question form                                                 |
 | **GET** | /admin/choices/edit/:id        | Edit choice form                                                       |
