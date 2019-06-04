@@ -1,14 +1,14 @@
-# [ PROJECT NAME ]
+# Bravo Zulu
 
-[ DESCRIPTION OF YOUR PROJECT]
+This project is going to be a quiz app for general US Naval knowledge. For navy exams and qualifications such as Enlisted Surface Warefare Specialist(ESWS), sailors are tested on their knowledge of naval battles, traditions and standards. The idea behind this is that senior sailors would make quizzes for their junior sailors to prepare them for tests and examinations.  
 
 ## Created By:
 
-**Name**: [ YOUR NAME]
+**Name**: Patrick Ritchie
 
-**Email**: [ YOUR EMAIL]
+**Email**: pmritchie@student.fullsail.edu
 
-**Slack Username**: [ YOUR USERNAME]
+**Slack Username**: Patrick Ritchie
 
 ## Setting up the app
 
