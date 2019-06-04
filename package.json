@@ -1,0 +1,29 @@
+{
+  "name": "ASL_Project",
+  "version": "1.0.0",
+  "description": "[ DESCRIPTION OF YOUR PROJECT]",
+  "main": ".eslintrc.js",
+  "dependencies": {
+    "eslint": "^5.16.0",
+    "nodemon": "^1.19.1"
+  },
+  "devDependencies": {
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.3"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "web": "cd web; nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ASL-WDD442/asl-quiz-app-pmritchie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ASL-WDD442/asl-quiz-app-pmritchie/issues"
+  },
+  "homepage": "https://github.com/ASL-WDD442/asl-quiz-app-pmritchie#readme"
+}
