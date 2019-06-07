@@ -3,7 +3,7 @@ const router = require('express').Router();
 // GET /decisions route
 const choicesCtrl = require('../controllers/choices');
 
-router.get('/?questionId=', choicesCtrl.getQuestionChoices);
+router.get('/', choicesCtrl.getQuestionChoices);
 // by id works
 router.get('/:id', choicesCtrl.getOneById);
 // post works

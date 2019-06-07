@@ -1,18 +1,15 @@
 // load in the question model
 const { Questions } = require('../models');
-
+// grab all questions from quiz
 exports.getQuizQuestions = (req, res) => {
-  console.log('yes');
-  const { id } = req.query;
+  const { quizId } = req.query;
   const questions = Questions.findAll();
   const publicQuestions = questions
-    .filter(question => question.quizId === id);
-
+    .filter(question => question.quizId === quizId);
   res.json(publicQuestions);
 };
 
 exports.getOneById = (req, res) => {
-  console.log('yes');
   const { id } = req.params;
   const question = Questions.findByPk(id);
   if (!question) {

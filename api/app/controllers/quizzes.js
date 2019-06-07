@@ -7,7 +7,6 @@ exports.getAllUsersQuizzes = (req, res) => {
   res.json(quizzes);
 };
 exports.getPublic = (req, res) => {
-  console.log('check');
   const quizzes = Quizzes.findAll();
   const publicQuizzes = quizzes
     .filter(quiz => quiz.type === 'public');

@@ -3,7 +3,7 @@ const router = require('express').Router();
 // GET /Questions route
 const questionsCtrl = require('../controllers/questions');
 
-router.get('/?quizID=', questionsCtrl.getQuizQuestions);
+router.get('/', questionsCtrl.getQuizQuestions);
 // post works
 router.post('/', questionsCtrl.createQuestion);
 // get by id works
