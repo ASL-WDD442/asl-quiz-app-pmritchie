@@ -2,7 +2,7 @@
 const router = require('express').Router();
 // GET /quizzess route
 const quizzesCtrl = require('../controllers/quizzes');
-
+// all rounters work here
 router.get('/public', quizzesCtrl.getPublic);
 
 router.get('/', quizzesCtrl.getAllUsersQuizzes);
