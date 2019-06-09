@@ -6,7 +6,7 @@ const error = require('debug')('web:error');
 const API = require('./utils/API');
 // load routers
 const publicRoutes = require('./routes/public');
-// const publicQuizRoutes = require('./routes/publicQuizzes');
+const adminQuizRoutes = require('./routes/adminQuizzes');
 // create an express app
 const app = express();
 // setting up folder to hold static files
@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 app.set('views', `${__dirname}/views`);
 // setup routers
 app.use('/', publicRoutes);
-// app.request('/')
+app.use('/admin/quizzes', adminQuizRoutes);
 // axios middleware
 
 

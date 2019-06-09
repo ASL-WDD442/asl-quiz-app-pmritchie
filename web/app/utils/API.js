@@ -15,7 +15,6 @@ const api = (req, res, next) => {
     },
   );
   req.API = API;
-  console.log(req.API);
   next();
 };
 
