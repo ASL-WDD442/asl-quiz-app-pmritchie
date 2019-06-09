@@ -1,0 +1,18 @@
+extends ../_layout
+include ../_includes/link_mixin
+block content
+    main.main__container
+    h1.heading Create A New Question
+    form.form(method="POST")
+        label.form__label
+            span Quiz Name
+            input.form__input(type="text", name="title", value=title)
+        label.form__label 
+            span Quiz Type
+            label.form__labelInLine
+                input.form__input__radio(type="radio", name="type", value="public", checked=type === 'public')
+                span Private
+            label.form__labelInline
+                input.form__input__radio(type="radio", name="type", value="private" checked=type === 'private')
+                span no
+            button.button

@@ -1,31 +1,32 @@
 // pull in the express package
 const express = require('express');
-// add logger
-const log = require('debug')('web:logging');
 // adding another logger
 const error = require('debug')('web:error');
+// load in the axios middleware
+const API = require('./utils/API');
+// load routers
+const publicRoutes = require('./routes/public');
+// const publicQuizRoutes = require('./routes/publicQuizzes');
 // create an express app
 const app = express();
 // setting up folder to hold static files
 app.use(express.static('public'));
 
-app.use((req, res, next) => {
-    log('\nRUNS ONCE FOR EVERY REQUEST');
-    setTimeout(() => {next();},2000);
-}, (req, res, next) => {
-    log('WILL RUN WHEN NEXT IS CALLLLLED');
-    next();
-});
-// route to specified middleware
-app.use('/about', (req, res, next) => {
-    log('This will run only on the /about page');
-    next(new Error('Not Authorized'));
-})
+app.use(API);
+// setting pug as the view engine
+app.set('view engine', 'pug');
+// set the view folder as the default place to render from
+app.set('views', `${__dirname}/views`);
+// setup routers
+app.use('/', publicRoutes);
+// app.request('/')
+// axios middleware
+
 
 app.use((err, req, res, next) => {
-    error('ERROR FOUND:', err);
-    res.sendStatus(500);
-})
+  error('ERROR FOUND:', err);
+  res.sendStatus(500);
+});
 
 // export the express app
 module.exports = app;
