@@ -22,7 +22,12 @@
   .primary {
     background-color: var(--primary-color);
   }
-  
+  .primary__link {
+    color: var(--active-color)
+  }
+  .secondary__link {
+    color: var(--primary-color)
+  }
   .primary__text {
     color: var(--primary-color);
   }

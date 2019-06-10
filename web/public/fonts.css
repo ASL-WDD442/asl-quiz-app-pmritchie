@@ -35,7 +35,6 @@ html {
   padding: 4px 5px;
   text-decoration: none;
   text-transform: uppercase;
-  color: var(--active-color);
   border: none;
   border-bottom: 1px solid var(--active-color);
   outline: none;

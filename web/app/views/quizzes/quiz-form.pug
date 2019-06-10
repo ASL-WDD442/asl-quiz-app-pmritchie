@@ -6,7 +6,7 @@ block content
     form.form(method="POST")
         label.form__label
             span Quiz Name
-            input.form__input(type="text", name="name", value=name)
+            input.form__input(type="text", name='name', value=name)
         label.form__label 
             span Quiz Type
             label.form__labelInLine
@@ -15,7 +15,7 @@ block content
             label.form__labelInline
                 input.form__input__radio(type="radio", name="type", value="private" checked=type === 'private')
                 span no
-            input.button(type="submit")
+            button(type="submit") Save
             if errors
                 for error in errors
                     small.flash=error.msg

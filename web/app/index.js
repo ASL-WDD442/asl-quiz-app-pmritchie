@@ -7,10 +7,14 @@ const API = require('./utils/API');
 // load routers
 const publicRoutes = require('./routes/public');
 const adminQuizRoutes = require('./routes/adminQuizzes');
+const adminQuestionsRoutes = require('./routes/adminQuestions');
+const adminChoicesRoutes = require('./routes/adminChoices');
 // create an express app
 const app = express();
 // setting up folder to hold static files
 app.use(express.static('public'));
+// checks to see if the content-type is url-encoded and parses it into req.body
+app.use(express.urlencoded({ extended: true }));
 
 app.use(API);
 // setting pug as the view engine
@@ -20,6 +24,8 @@ app.set('views', `${__dirname}/views`);
 // setup routers
 app.use('/', publicRoutes);
 app.use('/admin/quizzes', adminQuizRoutes);
+app.use('/admin/questions', adminQuestionsRoutes);
+app.use('/admin/choices', adminChoicesRoutes);
 // axios middleware
 
 

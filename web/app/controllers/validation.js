@@ -3,7 +3,7 @@ const { check, validationResult } = require('express-validator/check');
 const checks = {
   id: check('id')
     .isUUID().withMessage('Id not valid, please go back try again'),
-  title: check('title')
+  name: check('name')
     .exists().withMessage('Quiz title is required')
     .isLength(3)
     .withMessage('Quiz title is required to be at least 3 characters'),
@@ -11,6 +11,20 @@ const checks = {
     .exists().withMessage('Quiz type is required')
     .isIn(['public', 'private'])
     .withMessage('Quiz must be public or private'),
+  quizId: check('quizId')
+    .isUUID().withMessage('Id not valid, please go back try again'),
+  title: check('title')
+    .exists().withMessage('Quiz title is required')
+    .isLength(3)
+    .withMessage('Quiz title is required to be at least 3 characters'),
+  correct: check('type')
+    .exists().withMessage('Correct Answer required')
+    .isIn(['correct', 'incorrect'])
+    .withMessage('Choice type must be seleted'),
+  value: check('value')
+    .exists().withMessage('Choice value is required')
+    .isLength(3)
+    .withMessage('Choice value is required to be at least 3 characters'),
 };
 
 const checkForErrors = (req, res, next) => {
@@ -24,11 +38,23 @@ const checkForErrors = (req, res, next) => {
 
 exports.validate = (method) => {
   switch (method) {
-    case 'createDecisions': {
-      return [checks.title, checks.type, checkForErrors];
+    case 'createQuiz': {
+      return [checks.name, checks.type, checkForErrors];
     }
-    case 'editDecision': {
-      return [checks.id, checks.title, checks.type, checkForErrors];
+    case 'editQuiz': {
+      return [checks.id, checks.name, checks.type, checkForErrors];
+    }
+    case 'editQuestion': {
+      return [checks.quizId, checks.title, checkForErrors];
+    }
+    case 'createQuestion': {
+      return [checks.title, checkForErrors];
+    }
+    case 'createchoice': {
+      return [checks.value, checkForErrors];
+    }
+    case 'editChoice': {
+      return [checks.title, checkForErrors];
     }
 
     default: {

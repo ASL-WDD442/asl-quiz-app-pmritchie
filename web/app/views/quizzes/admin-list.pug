@@ -1,0 +1,11 @@
+extends ../_layout
+include ../_includes/link_mixin
+block content
+  h1.heading Here are your quizzes Squid!
+  p Here you can edit or delete your quizzes.
+  ul.list
+    for quiz in quizzes
+      li.list__item
+        span.list__item__title= quiz.name
+        +link('/admin/quizzes/'+quiz.id, 'View', 'fa-eye')
+  +link('/admin/quizzes/new', 'Create Your Own','fa-plus', 'primary__link')
