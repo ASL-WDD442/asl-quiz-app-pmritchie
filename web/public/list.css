@@ -1,6 +1,6 @@
 .list {
     padding: 20px 20px;
-    margin: 20px 10rem;
+    margin: 20px 20px;
     border: 1px solid var(--border-color);
     display: flex;
     flex-direction: row;
@@ -16,6 +16,10 @@
     justify-content: space-between;
     align-items: center;
     margin: 1rem;
+    height: 5rem;
+    width: 15rem;
+    background-color: rgba(255, 255, 255, 0.838);
+    backdrop-filter: blur(5px)
   }
   
   .list__item__title {

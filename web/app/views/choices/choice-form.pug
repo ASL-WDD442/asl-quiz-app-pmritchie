@@ -5,15 +5,16 @@ block content
     form.form(method="POST")
         label.form__label
             span Choice Name
-            input.form__input(type="text", name='value', value=value)
-        label.form__labelInLine
+            input.form__input(type="text", name="value", value=value)
+            input(type="hidden" name="questionId" value=questionId)
             span Choice Type
-                input.form__input__radio(type="radio", name="type", value="incorrect", checked=type === 'incorrect')
-                span Incorrect
+        label.form__labelInLine
+            input.form__input__radio(type="radio", name="type", value="incorrect", checked=type === 'incorrect')
+            span Incorrect
         label.form__labelInline
             input.form__input__radio(type="radio", name="type", value="correct" checked=type === 'correct')
             span Correct
-        button(type="submit") Save
+        button.button(type="submit") Save
         if errors
             for error in errors
                 small.flash=error.msg

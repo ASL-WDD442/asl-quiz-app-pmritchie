@@ -24,5 +24,7 @@ router.get('/edit/:id', quizzesCrtl.renderEditForm);
 router.get('/list', quizzesCrtl.renderList);
 
 router.get('/:id', quizzesCrtl.quizDetail);
+
+router.get('/delete/:id', quizzesCrtl.deleteQuiz);
 // export the route from this file
 module.exports = router;

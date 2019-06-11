@@ -4,9 +4,9 @@ const checks = {
   id: check('id')
     .isUUID().withMessage('Id not valid, please go back try again'),
   name: check('name')
-    .exists().withMessage('Quiz title is required')
+    .exists().withMessage('Quiz name is required')
     .isLength(3)
-    .withMessage('Quiz title is required to be at least 3 characters'),
+    .withMessage('Quiz name is required to be at least 3 characters'),
   type: check('type')
     .exists().withMessage('Quiz type is required')
     .isIn(['public', 'private'])
@@ -14,9 +14,9 @@ const checks = {
   quizId: check('quizId')
     .isUUID().withMessage('Id not valid, please go back try again'),
   title: check('title')
-    .exists().withMessage('Quiz title is required')
+    .exists().withMessage('Question title is required')
     .isLength(3)
-    .withMessage('Quiz title is required to be at least 3 characters'),
+    .withMessage('Question title is required to be at least 3 characters'),
   correct: check('type')
     .exists().withMessage('Correct Answer required')
     .isIn(['correct', 'incorrect'])
@@ -51,10 +51,10 @@ exports.validate = (method) => {
       return [checks.title, checkForErrors];
     }
     case 'createchoice': {
-      return [checks.value, checkForErrors];
+      return [checks.value, checks.correct, checkForErrors];
     }
     case 'editChoice': {
-      return [checks.title, checkForErrors];
+      return [checks.value, checks.correct, checkForErrors];
     }
 
     default: {

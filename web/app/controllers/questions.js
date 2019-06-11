@@ -49,6 +49,6 @@ exports.getQuestionDetail = async (req, res) => {
 exports.deleteQuestion = async (req, res) => {
   const { questionId } = req.params;
   console.log(questionId);
-  await req.Api.delete(`/questions/${questionId}`);
-  res.redirect('/admin/quizzes');
+  await req.API.delete(`/questions/${questionId}`);
+  res.redirect('back');
 };

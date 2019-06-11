@@ -18,13 +18,25 @@ exports.saveNewChoice = async (req, res) => {
 };
 
 exports.renderEditForm = async (req, res) => {
-  // console.log(req.params);
+  // fill the edit for with data to edit
   const { choiceId } = req.params;
-  // console.log(choiceId);
   const choice = await req.API.get(`/choices/${choiceId}`);
-  // console.log(choice);
   res.render('choices/choice-form', choice);
 };
+
+// eslint-disable-next-line no-unused-vars
 exports.saveEditChoice = async (req, res) => {
-  console.log(req.params);
+  const { choiceId } = req.params;
+  const {
+    questionId, value, type,
+  } = req.body;
+  await req.API.put(`/choices/${choiceId}`, { value, type });
+  res.redirect(`/admin/questions/${questionId}`);
+};
+
+exports.deleteChoice = async (req, res) => {
+  const { choiceId } = req.params;
+  console.log(choiceId);
+  await req.API.delete(`/choices/${choiceId}`);
+  res.redirect('back');
 };

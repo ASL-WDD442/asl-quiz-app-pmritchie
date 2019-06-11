@@ -50,3 +50,10 @@ exports.renderDecisionFormWithErrors = (errors, req, res, next) => {
   // send the name, type, and errors as variables to the view.
   res.render('quizzes/quiz-form', { name, type, errors });
 };
+
+exports.deleteQuiz = async (req, res) => {
+  const { id } = req.params;
+  console.log(id);
+  await req.API.delete(`/quizzes/${id}`);
+  res.redirect('back');
+};
