@@ -1,98 +1,19 @@
-module.exports = [
-  {
-    id: '124bc5bb-7eca-4968-a73c-b03176565114',
-    value: '13 October 1775',
-    type: 'correct',
-    questionId: 'bff93b3a-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '19ee4554-dbed-435c-95a7-1a15bb612d5e',
-    value: '13 Nov 1776',
-    type: 'incorrect',
-    questionId: 'bff93b3a-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '116c88fb-907a-46ee-8dbd-7d4e54e639bd',
-    value: '24 September 1788',
-    type: 'incorrect',
-    questionId: 'bff93b3a-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '781b445c-6822-49aa-acbf-b1dd5522e1c0',
-    value: '04 July 1776',
-    type: 'incorrect',
-    questionId: 'bff93b3a-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '70e3fef3-e41d-45c3-b13d-f24feeff0359',
-    value: 'Red and Gold',
-    type: 'incorrect',
-    questionId: 'bff93fae-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: 'd96220a0-538b-4d9c-aac3-1dd31d1772a1',
-    value: 'Blue and Gold',
-    type: 'correct',
-    questionId: 'bff93fae-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '438d3ad6-5f1a-4adc-b547-34cfe3e7c9b5',
-    value: 'Blue and Grey',
-    type: 'incorrect',
-    questionId: 'bff93fae-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: 'cdf40968-631a-4c63-9ac0-1b9ce91c0dac',
-    value: 'Grey and Purlple',
-    type: 'incorrect',
-    questionId: 'bff93fae-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '9398cd7a-be1b-4296-83f5-2b1dfed361ab',
-    value: '14-18 May 1943',
-    type: 'incorrect',
-    questionId: 'bff940da-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '81350886-482f-42b3-9b9a-3238486ef545',
-    value: '6 June 1944',
-    type: 'incorrect',
-    questionId: 'bff940da-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '680ee504-8adc-43f1-9c36-24cf7f8a493e',
-    value: '4-8 May 1942',
-    type: 'correct',
-    questionId: 'bff940da-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: 'f47f679b-c872-4cb8-8344-6fb3eeb56ecd',
-    value: '12-14 March 1943',
-    type: '',
-    questionId: 'bff940da-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '248b9b30-5e9a-4053-ad50-34889573c41d',
-    value: '2',
-    type: 'incorrect',
-    questionId: 'bff941fc-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: 'e15d7d55-e674-41ed-82d7-084308de24d6',
-    value: '3',
-    type: 'incorrect',
-    questionId: 'bff941fc-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: '6fdc1434-70f3-4fb8-bd6a-e425fd03b206',
-    value: '4',
-    type: 'correct',
-    questionId: 'bff941fc-88a3-11e9-bc42-526af7764f64',
-  },
-  {
-    id: 'a3f0a561-d490-40d1-9341-3121e7d39c1b',
-    value: '5',
-    type: 'incorrect',
-    questionId: 'bff941fc-88a3-11e9-bc42-526af7764f64',
-  },
-];
+
+
+module.exports = (sequelize, DataTypes) => {
+  const Choices = sequelize.define('Choices', {
+    id: {
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      type: DataTypes.UUID,
+    },
+    value: DataTypes.STRING,
+    type: DataTypes.ENUM('correct', 'incorrect'),
+    questionId: DataTypes.UUID,
+  }, {});
+  Choices.associate = function (models) {
+    // associations can be defined here
+    Choices.belongsTo(models.Questions, { foreignKey: 'questionId' });
+  };
+  return Choices;
+};
