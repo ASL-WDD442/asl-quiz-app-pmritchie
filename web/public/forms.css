@@ -53,6 +53,8 @@
   .form__input__radio {
     visibility: hidden;
     position: relative;
+    margin-left: 20px;
+    margin-right: 10px;
   }
   
   .form__input__radio::before {

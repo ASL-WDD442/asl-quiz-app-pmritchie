@@ -10,12 +10,12 @@ router.get('/edit/:questionId', questionsCrtl.renderEditForm);
 
 router.post('/edit/:questionId',
   validationCtrl.validate('editQuestion'),
-  questionsCrtl.renderDecisionFormWithErrors,
+  questionsCrtl.renderQuestionFormWithErrors,
   questionsCrtl.saveQuestion);
 
 router.post('/new',
   validationCtrl.validate('createQuestion'),
-  questionsCrtl.renderDecisionFormWithErrors,
+  questionsCrtl.renderQuestionFormWithErrors,
   questionsCrtl.saveNewQuestion);
 
 router.get('/:id', questionsCrtl.getQuestionDetail);

@@ -9,13 +9,13 @@ router.get('/new', quizzesCrtl.newQuiz);
 // POST /admin/Quiz/new - validate the data and than save it
 router.post('/new', [
   validationCtrl.validate('createQuiz'),
-  quizzesCrtl.renderDecisionFormWithErrors,
+  quizzesCrtl.renderQuizFormWithErrors,
   quizzesCrtl.saveQuiz,
 ]);
 
 router.post('/edit/:id',
   validationCtrl.validate('editQuiz'),
-  quizzesCrtl.renderDecisionFormWithErrors,
+  quizzesCrtl.renderQuizFormWithErrors,
   quizzesCrtl.saveQuiz);
 
 router.get('/edit/:id', quizzesCrtl.renderEditForm);

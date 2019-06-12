@@ -31,7 +31,6 @@ exports.quizDetail = async (req, res) => {
   // grad quiz by id and questions for quiz
   const quiz = await req.API.get(`/quizzes/${id.id}`);
   const questions = await req.API.get(`/questions/?quizId=${id.id}`);
-  console.log(questions);
   // send data to page
   res.render('quizzes/quiz-detail', { quiz, questions });
 };
@@ -44,16 +43,20 @@ exports.renderEditForm = async (req, res) => {
 
 // four params are required to mark this as a error handling middleware
 // eslint-disable-next-line no-unused-vars
-exports.renderDecisionFormWithErrors = (errors, req, res, next) => {
-  // get the data the user submitted
+exports.renderQuizFormWithErrors = (errors, req, res, next) => {
+  const { id } = req.params;
   const { name, type } = req.body;
-  // send the name, type, and errors as variables to the view.
-  res.render('quizzes/quiz-form', { name, type, errors });
+  if (id) {
+    res.render('quizzes/quiz-form', {
+      id, name, type, errors,
+    });
+  } else {
+    res.render('quizzes/quiz-form', { name, type, errors });
+  }
 };
 
 exports.deleteQuiz = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   await req.API.delete(`/quizzes/${id}`);
   res.redirect('back');
 };

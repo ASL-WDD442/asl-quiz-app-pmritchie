@@ -5,12 +5,28 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       type: DataTypes.UUID,
+      validate: {
+        isUUID: { args: 4, msg: 'Id not valid, please try again' },
+      },
     },
-    name: DataTypes.STRING,
-    type: DataTypes.ENUM('public', 'private'),
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        len: { args: [3, 500], msg: 'Quiz name must be 3 characters long' },
+      },
+    },
+    type: {
+      type: DataTypes.ENUM('public', 'private'),
+      validate: {
+        isIn: {
+          args: [['public', 'private']],
+          msg: 'Decision must be public or private',
+        },
+      },
+    },
   }, {});
+  // eslint-disable-next-line func-names
   Quizzes.associate = function (models) {
-    // associations can be defined here
     Quizzes.hasMany(models.Questions, { foreignKey: 'quizId' });
   };
   return Quizzes;

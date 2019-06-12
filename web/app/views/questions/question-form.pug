@@ -8,3 +8,6 @@ block content
             input.form__input(type="text", name='title', value=title)
             input.form__input(type="hidden", name='quizId', value=quizId)
         button.button(type="submit") Save Question
+        if errors
+            for error in errors
+                small.flash=error.msg

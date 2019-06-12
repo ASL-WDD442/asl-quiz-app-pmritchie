@@ -1,4 +1,4 @@
-
+// models define data for database
 
 module.exports = (sequelize, DataTypes) => {
   const Questions = sequelize.define('Questions', {
@@ -6,12 +6,25 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
       type: DataTypes.UUID,
+      validate: {
+        isUUID: { args: 4, msg: 'Id not valid, please try again' },
+      },
     },
-    title: DataTypes.STRING,
-    quizId: DataTypes.UUID,
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        len: { args: [3, 500], msg: 'Decision title is required to be at least 3 characters' },
+      },
+    },
+    quizId: {
+      type: DataTypes.UUID,
+      validate: {
+        isUUID: { args: 4, msg: 'Id not valid, please try again' },
+      },
+    },
   }, {});
+  // eslint-disable-next-line func-names
   Questions.associate = function (models) {
-    // associations can be defined here
     Questions.belongsTo(models.Quizzes, { foreignKey: 'quizId' });
     Questions.hasMany(models.Choices, { foreignKey: 'questionId' });
   };

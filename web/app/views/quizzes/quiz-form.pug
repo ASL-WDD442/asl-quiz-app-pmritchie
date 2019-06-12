@@ -6,12 +6,10 @@ block content
         label.form__label
             span Quiz Name
             input.form__input(type="text", name='name', value=name)
-        label.form__label 
+        label.form__label__inline 
             span Quiz Type
-        label.form__labelInLine
             input.form__input__radio(type="radio", name="type", value="public", checked=type === 'public')
             span Public
-        label.form__labelInline
             input.form__input__radio(type="radio", name="type", value="private" checked=type === 'private')
             span Private
         button.button(type="submit") Save
