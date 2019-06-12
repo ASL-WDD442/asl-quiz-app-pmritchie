@@ -7,7 +7,6 @@ exports.renderChoiceFormWithErrors = async (errors, req, res, next) => {
   const id = req.params.choiceId;
   const { value, type, questionId } = req.body;
   if (id) {
-    console.log('Question ID FOUND');
     res.render('choices/choice-form', {
       id, value, type, questionId, errors,
     });
@@ -30,7 +29,6 @@ exports.renderEditForm = async (req, res) => {
   // fill the edit for with data to edit
   const { choiceId } = req.params;
   const choice = await req.API.get(`/choices/${choiceId}`);
-  console.log(`Choice: ${choice}`);
   res.render('choices/choice-form', choice);
 };
 

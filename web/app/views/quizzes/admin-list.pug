@@ -8,4 +8,5 @@ block content
       li.list__item
         span.list__item__title= quiz.name
         +link('/admin/quizzes/'+quiz.id, 'View', 'fa-eye')
-  +link('/admin/quizzes/new', 'Create Your Own','fa-plus', 'primary__link')
+        +link('/admin/quizzes/delete/'+quiz.id, 'Delete', 'fa-trash', 'secondary__link')
+  +link('/admin/quizzes/new', 'Create Your Own','fa-plus', 'primary__link__button')

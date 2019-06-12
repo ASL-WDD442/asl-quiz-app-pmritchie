@@ -3,6 +3,13 @@ exports.renderLanding = async (req, res) => {
   res.render('home', { quizzes });
 };
 
+exports.renderQuiz = async (req, res) => {
+  const { quizId } = req.params;
+  const quiz = await req.API.get(`quizzes/${quizId}`);
+  const questions = await req.API.get(`/questions/?quizId=${quizId}`);
+  res.render('quiz-landing', { quiz, questions });
+};
+
 exports.renderList = async (req, res) => {
   const quizzes = await req.API.get('/quizzes/public');
   res.render('quizzes/admin-list', { quizzes });
