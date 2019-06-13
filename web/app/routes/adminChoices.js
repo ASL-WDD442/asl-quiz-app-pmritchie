@@ -4,19 +4,19 @@ const router = require('express').Router();
 const choicesCrtl = require('../controllers/choices');
 const validationCtrl = require('../controllers/validation');
 
-router.get('/', choicesCrtl.createChoice);
-
 router.get('/new', choicesCrtl.createChoice);
+
 router.get('/edit/:choiceId', choicesCrtl.renderEditForm);
 
 router.post('/new',
   validationCtrl.validate('createChoice'),
-  choicesCrtl.renderDecisionFormWithErrors,
+  choicesCrtl.renderChoiceFormWithErrors,
   choicesCrtl.saveNewChoice);
 
 router.post('/edit/:choiceId',
   validationCtrl.validate('editChoice'),
-  choicesCrtl.renderDecisionFormWithErrors,
-  choicesCrtl.saveNewChoice);
+  choicesCrtl.renderChoiceFormWithErrors,
+  choicesCrtl.saveEditChoice);
 
+router.get('/delete/:choiceId', choicesCrtl.deleteChoice);
 module.exports = router;

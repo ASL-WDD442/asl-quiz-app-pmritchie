@@ -3,7 +3,6 @@ exports.createQuestion = async (req, res) => {
 };
 
 exports.renderEditForm = async (req, res) => {
-  console.log('check render form');
   const { questionId } = req.params;
   const question = await req.API.get(`/questions/${questionId}`);
   res.render('questions/question-form', question);
@@ -17,17 +16,24 @@ exports.saveNewQuestion = async (req, res) => {
   res.redirect(`/admin/quizzes/${quizId}`);
 };
 
-exports.renderDecisionFormWithErrors = async (req, res, next, errors) => {
+exports.renderQuestionFormWithErrors = async (errors, req, res, next) => {
 // get the data the user submitted
+  const id = req.params.questionId;
   const { title, quizId } = req.body;
-  // send the name, type, and errors as variables to the view.
-  res.render('questions/question-form', { title, quizId, errors });
+  if (id) {
+    res.render('questions/question-form', {
+      id, title, quizId, errors,
+    });
+  } else {
+    res.render('questions/question-form', {
+      title, quizId, errors,
+    });
+  }
 };
 
 exports.saveQuestion = async (req, res) => {
   const { title, quizId } = req.body;
   const { questionId } = req.params;
-  console.log('quizId');
   // eslint-disable-next-line no-unused-vars
   const data = await req.API.put(`/questions/${questionId}`, { title });
 
@@ -37,18 +43,15 @@ exports.saveQuestion = async (req, res) => {
 
 exports.getQuestionDetail = async (req, res) => {
   const { id } = req.params;
-  console.log(id);
   // grab question by id and choices for question
   const question = await req.API.get(`/questions/${id}`);
   const choices = await req.API.get(`/choices/?questionId=${id}`);
-  console.log(question);
   // send data to page
   res.render('questions/question-detail', { question, choices });
 };
 
 exports.deleteQuestion = async (req, res) => {
   const { questionId } = req.params;
-  console.log(questionId);
-  await req.Api.delete(`/questions/${questionId}`);
-  res.redirect('/admin/quizzes');
+  await req.API.delete(`/questions/${questionId}`);
+  res.redirect('back');
 };

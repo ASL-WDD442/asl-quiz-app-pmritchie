@@ -1,16 +1,33 @@
-module.exports = [
-  {
-    id: '11c982f1-e315-4a04-9dc2-70f2a21b86f9',
-    name: 'Naval Heritage',
-    type: 'public',
-    userId: '1',
-  },
 
-  {
-    id: '7138442a-cd42-4e50-81f7-cf8ee05f8da7',
-    name: 'Naval Battles',
-    type: 'public',
-    userId: '2',
-  },
-
-];
+module.exports = (sequelize, DataTypes) => {
+  const Quizzes = sequelize.define('Quizzes', {
+    id: {
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+      type: DataTypes.UUID,
+      validate: {
+        isUUID: { args: 4, msg: 'Id not valid, please try again' },
+      },
+    },
+    name: {
+      type: DataTypes.STRING,
+      validate: {
+        len: { args: [3, 500], msg: 'Quiz name must be 3 characters long' },
+      },
+    },
+    type: {
+      type: DataTypes.ENUM('public', 'private'),
+      validate: {
+        isIn: {
+          args: [['public', 'private']],
+          msg: 'Decision must be public or private',
+        },
+      },
+    },
+  }, {});
+  // eslint-disable-next-line func-names
+  Quizzes.associate = function (models) {
+    Quizzes.hasMany(models.Questions, { foreignKey: 'quizId' });
+  };
+  return Quizzes;
+};

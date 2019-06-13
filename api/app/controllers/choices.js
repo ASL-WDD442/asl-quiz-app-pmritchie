@@ -1,18 +1,15 @@
 // load in the choice model
 const { Choices } = require('../models');
 
-exports.getQuestionChoices = (req, res) => {
+exports.getQuestionChoices = async (req, res) => {
   const { questionId } = req.query;
-  const choices = Choices.findAll();
-  const publicChoices = choices
-    .filter(choice => choice.questionId === questionId);
-
+  const publicChoices = await Choices.findAll({ where: { questionId } });
   res.json(publicChoices);
 };
 
-exports.getOneById = (req, res) => {
+exports.getOneById = async (req, res) => {
   const { id } = req.params;
-  const choice = Choices.findByPk(id);
+  const choice = await Choices.findByPk(id);
   if (!choice) {
     res.sendStatus(404);
     return;
@@ -20,20 +17,33 @@ exports.getOneById = (req, res) => {
   res.json(choice);
 };
 
-exports.createChoice = (req, res) => {
+exports.createChoice = async (req, res) => {
   const { value, type, questionId } = req.body;
-  const id = Choices.create({ value, type, questionId });
-  res.json({ id });
+  try {
+    const newChoice = await Choices.create({ value, type, questionId });
+    res.json({ id: newChoice.id });
+  } catch (e) {
+    const errors = e.errors.map(err => err.message);
+    res.status(400).json({ errors });
+  }
 };
 
-exports.updateChoice = (req, res) => {
+exports.updateChoice = async (req, res) => {
   const { id } = req.params;
-  const updatedChoices = Choices.update(req.body, id);
-  res.json(updatedChoices);
+  try {
+    const [, [updatedChoice]] = await Choices.update(req.body, {
+      where: { id },
+      returning: true,
+    });
+    res.json(updatedChoice);
+  } catch (e) {
+    const errors = e.errors.map(err => err.message);
+    res.status(400).json({ errors });
+  }
 };
 
-exports.removeChoice = (req, res) => {
+exports.removeChoice = async (req, res) => {
   const { id } = req.params;
-  Choices.destroy(id);
+  await Choices.destroy({ where: { id } });
   res.sendStatus(200);
 };

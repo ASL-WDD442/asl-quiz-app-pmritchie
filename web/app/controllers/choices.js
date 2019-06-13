@@ -2,11 +2,19 @@ exports.createChoice = async (req, res) => {
   res.render('choices/choice-form');
 };
 
-exports.renderDecisionFormWithErrors = async (req, res, next, errors) => {
+exports.renderChoiceFormWithErrors = async (errors, req, res, next) => {
   // get the data the user submitted
-  const { value, questionId } = req.body;
-  // send the name, type, and errors as variables to the view.
-  res.render('questions/question-form', { value, questionId, errors });
+  const id = req.params.choiceId;
+  const { value, type, questionId } = req.body;
+  if (id) {
+    res.render('choices/choice-form', {
+      id, value, type, questionId, errors,
+    });
+  } else {
+    res.render('choices/choice-form', {
+      value, type, questionId, errors,
+    });
+  }
 };
 
 exports.saveNewChoice = async (req, res) => {
@@ -18,13 +26,24 @@ exports.saveNewChoice = async (req, res) => {
 };
 
 exports.renderEditForm = async (req, res) => {
-  // console.log(req.params);
+  // fill the edit for with data to edit
   const { choiceId } = req.params;
-  // console.log(choiceId);
   const choice = await req.API.get(`/choices/${choiceId}`);
-  // console.log(choice);
   res.render('choices/choice-form', choice);
 };
+
+// eslint-disable-next-line no-unused-vars
 exports.saveEditChoice = async (req, res) => {
-  console.log(req.params);
+  const { choiceId } = req.params;
+  const {
+    questionId, value, type,
+  } = req.body;
+  await req.API.put(`/choices/${choiceId}`, { value, type });
+  res.redirect(`/admin/questions/${questionId}`);
+};
+
+exports.deleteChoice = async (req, res) => {
+  const { choiceId } = req.params;
+  await req.API.delete(`/choices/${choiceId}`);
+  res.redirect('back');
 };

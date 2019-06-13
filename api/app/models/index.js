@@ -1,52 +1,33 @@
-const uuid = require('uuid/v1');
-const questions = require('./questions');
-const choices = require('./choices');
-const quizzes = require('./quizzes');
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
 
-class Model {
-  constructor(data) {
-    this.values = data;
-  }
+const basename = path.basename(__filename);
+const env = process.env.NODE_ENV || 'development';
+const config = require('../../db/config.json')[env];
 
-  findAll() {
-    return this.values;
-  }
-
-  findByPk(id) {
-    return this.values.find(item => item.id === id);
-  }
-
-  // make an
-  create(item) {
-    const id = uuid();
-    this.values.push({ id, ...item });
-    return id;
-  }
-
-  update(valuesToChange, id) {
-    const index = this.values.findIndex(item => item.id === id);
-    const newValue = {
-      // pull in data that currently extsits
-      ...this.values[index],
-      //
-      ...valuesToChange,
-    };
-    this.values = [
-      ...this.values.slice(0, index),
-      newValue,
-      ...this.values.slice(index + 1),
-    ];
-
-    return newValue;
-  }
-
-  destroy(id) {
-    this.values = this.values.filter(item => item.id !== id);
-  }
+const db = {};
+let sequelize;
+if (config.use_env_variable) {
+  sequelize = new Sequelize(process.env[config.use_env_variable], config);
+} else {
+  sequelize = new Sequelize(config.database, config.username, config.password, config);
 }
 
-module.exports = {
-  Questions: new Model(questions),
-  Choices: new Model(choices),
-  Quizzes: new Model(quizzes),
-};
+fs
+  .readdirSync(__dirname)
+  .filter(file => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
+  .forEach((file) => {
+    const model = sequelize.import(path.join(__dirname, file));
+    db[model.name] = model;
+  });
+
+Object.keys(db).forEach((modelName) => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  }
+});
+
+db.sequelize = sequelize;
+db.Sequelize = Sequelize;
+module.exports = db;

@@ -4,9 +4,9 @@ const checks = {
   id: check('id')
     .isUUID().withMessage('Id not valid, please go back try again'),
   name: check('name')
-    .exists().withMessage('Quiz title is required')
+    .exists().withMessage('Quiz name is required')
     .isLength(3)
-    .withMessage('Quiz title is required to be at least 3 characters'),
+    .withMessage('Quiz name is required to be at least 3 characters'),
   type: check('type')
     .exists().withMessage('Quiz type is required')
     .isIn(['public', 'private'])
@@ -14,17 +14,19 @@ const checks = {
   quizId: check('quizId')
     .isUUID().withMessage('Id not valid, please go back try again'),
   title: check('title')
-    .exists().withMessage('Quiz title is required')
+    .exists().withMessage('Question title is required')
     .isLength(3)
-    .withMessage('Quiz title is required to be at least 3 characters'),
+    .withMessage('Question title is required to be at least 3 characters'),
   correct: check('type')
     .exists().withMessage('Correct Answer required')
     .isIn(['correct', 'incorrect'])
     .withMessage('Choice type must be seleted'),
   value: check('value')
     .exists().withMessage('Choice value is required')
-    .isLength(3)
-    .withMessage('Choice value is required to be at least 3 characters'),
+    .isLength(1)
+    .withMessage('Choice value is required to be at least 1 characters or number'),
+  questionId: check('questionId')
+    .isUUID().withMessage('Id not valid, please go back try again'),
 };
 
 const checkForErrors = (req, res, next) => {
@@ -45,16 +47,17 @@ exports.validate = (method) => {
       return [checks.id, checks.name, checks.type, checkForErrors];
     }
     case 'editQuestion': {
-      return [checks.quizId, checks.title, checkForErrors];
+      return [checks.title, checks.quizId, checkForErrors];
     }
     case 'createQuestion': {
       return [checks.title, checkForErrors];
     }
-    case 'createchoice': {
-      return [checks.value, checkForErrors];
+    case 'createChoice': {
+      return [checks.value, checks.correct, checkForErrors];
     }
     case 'editChoice': {
-      return [checks.title, checkForErrors];
+      console.log('editChoice');
+      return [checks.value, checks.correct, checks.questionId, checkForErrors];
     }
 
     default: {
