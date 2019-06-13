@@ -1,0 +1,15 @@
+extends ../_layout
+include ../_includes/link_mixin
+block content
+    h1.heading= question.title
+    +link('/admin/questions/edit/'+question.id, 'Edit', 'fa-pencil', 'primary__link')
+    h2.heading Choices
+    ul.list
+        for choice in choices
+            li.list__item
+                span.list__item__title= choice.value
+                span.list__item__title= choice.type
+                +link('/admin/choices/edit/'+choice.id, 'Edit', 'fa-pencil', 'primary__link')
+                +link('/admin/choices/delete/'+choice.id, 'Delete', 'fa-trash', 'secondary__link')
+                
+    +link('/admin/choices/new?questionId='+question.id, 'Create New Choice','fa-plus', 'primary__link')

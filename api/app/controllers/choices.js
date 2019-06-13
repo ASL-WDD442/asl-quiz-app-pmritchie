@@ -2,17 +2,15 @@
 const { Choices } = require('../models');
 
 exports.getQuestionChoices = (req, res) => {
-  console.log('la');
-  const { id } = req.query;
+  const { questionId } = req.query;
   const choices = Choices.findAll();
   const publicChoices = choices
-    .filter(choice => choice.questionId === id);
+    .filter(choice => choice.questionId === questionId);
 
   res.json(publicChoices);
 };
 
 exports.getOneById = (req, res) => {
-  console.log('la la');
   const { id } = req.params;
   const choice = Choices.findByPk(id);
   if (!choice) {
@@ -23,7 +21,6 @@ exports.getOneById = (req, res) => {
 };
 
 exports.createChoice = (req, res) => {
-  console.log('la la la');
   const { value, type, questionId } = req.body;
   const id = Choices.create({ value, type, questionId });
   res.json({ id });
