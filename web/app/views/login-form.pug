@@ -1,0 +1,19 @@
+extends _layout
+include _includes/link_mixin
+block content
+    h1.heading Login
+    form.form(method="POST")
+        label.form__label
+            span Username
+            input.form__input(type="text", name='username')
+        label.form__label
+            span Email
+            input.form__input(type="email", name='email')
+        h4.heading Sign In Through
+        a.button(href='/login/slack')
+            i.fab.fa-slack
+            span &nbsp; Login with Slack
+        button.button(type="submit") Login
+        if errors
+            for error in errors
+                small.flash=error.msg
