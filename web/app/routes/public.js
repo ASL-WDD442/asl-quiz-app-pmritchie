@@ -3,8 +3,21 @@ const router = require('express').Router();
 // load the controller
 const quizCtrl = require('../controllers/quizzes');
 const authCtrl = require('../controllers/auth');
+const validationCtrl = require('../controllers/validation');
 // GET / - loads the home page
 router.get('/', quizCtrl.renderLanding);
+
+router.post('/signup',
+  validationCtrl.validate('login'),
+  authCtrl.renderSignInFormWithErrors,
+  authCtrl.signUp);
+
+router.post('/login',
+  validationCtrl.validate('login'),
+  authCtrl.renderLogInFormWithErrors,
+  authCtrl.login);
+
+router.get('/signup', authCtrl.signUpForm);
 
 router.get('/login', authCtrl.renderLogin);
 

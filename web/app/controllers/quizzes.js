@@ -11,7 +11,7 @@ exports.renderQuiz = async (req, res) => {
 };
 
 exports.renderList = async (req, res) => {
-  const quizzes = await req.API.get('/quizzes/public');
+  const quizzes = await req.API.get('/quizzes');
   res.render('quizzes/admin-list', { quizzes });
 };
 

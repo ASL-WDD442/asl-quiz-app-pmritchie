@@ -26,7 +26,7 @@ exports.createQuiz = async (req, res) => {
   // eslint-disable-next-line no-unused-vars
   const { name, type, userId } = req.body;
   try {
-    const newQuiz = await Quizzes.create({ name, type });
+    const newQuiz = await Quizzes.create({ name, type, userId: req.userId });
     res.json({ id: newQuiz.id });
   } catch (e) {
     const errors = e.errors.map(err => err.message);
@@ -52,4 +52,12 @@ exports.removeQuiz = async (req, res) => {
   const { id } = req.params;
   await Quizzes.destroy({ where: { id } });
   res.sendStatus(200);
+};
+
+exports.getUserQuizzes = async (req, res) => {
+  // run the find all function on the model
+  // filter the decisions to only decisions that were created by this user
+  const userQuizzes = await Quizzes.findAll({ where: { userId: req.userId } });
+  // respond with json of the user decisions array
+  res.json(userQuizzes);
 };

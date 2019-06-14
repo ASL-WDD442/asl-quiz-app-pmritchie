@@ -1,4 +1,5 @@
 const querystring = require('querystring');
+// eslint-disable-next-line no-unused-vars
 const log = require('debug')('web:request');
 
 // eslint-disable-next-line no-unused-vars
@@ -34,4 +35,35 @@ exports.logout = (req, res) => {
   req.session.destroy();
   // send them to the home page
   res.redirect('/');
+};
+exports.renderLogInFormWithErrors = (errors, req, res, next) => {
+  const { username } = req.body;
+
+  res.render('login-form', { username, errors });
+};
+exports.renderSignInFormWithErrors = (errors, req, res, next) => {
+  const { username } = req.body;
+
+  res.render('signUp-form', { username, errors });
+};
+exports.signUp = async (req, res) => {
+  const { username, password } = req.body;
+
+  const { pass, loggedIn } = await req.API.post('/auth/signup', { username, password });
+  req.session.loggedIn = loggedIn;
+  req.session.token = pass;
+  res.redirect('/admin/quizzes/list');
+};
+
+exports.signUpForm = (req, res) => {
+  res.render('signUp-form');
+};
+
+exports.login = async (req, res) => {
+  const { username, password } = req.body;
+
+  const { pass, loggedIn } = await req.API.post('/auth/login', { username, password });
+  req.session.loggedIn = loggedIn;
+  req.session.token = pass;
+  res.redirect('/admin/quizzes/list');
 };
