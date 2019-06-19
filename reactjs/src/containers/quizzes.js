@@ -35,10 +35,17 @@ export default function container(Component) {
     getQuizQuestions = async (id) => {
       const choices = [];
       const questions = await API.get(`/questions/?quizId=${id}`);
-      questions.map(async (question) => {
-        const getChoices = await API.get(`choices/?questionId=${question.id}`);
-        choices.push(getChoices);
-      });
+      if (questions) {
+        questions.map(async (question) => {
+          const getChoices = await API.get(`choices/?questionId=${question.id}`);
+          getChoices.forEach((choice) => {
+            const item = {
+              id: choice.id, value: choice.value, type: choice.type, questionId: choice.questionId,
+            };
+            choices.push(item);
+          });
+        });
+      }
       this.setState({ questions, choices });
     }
 
@@ -54,6 +61,7 @@ export default function container(Component) {
       const {
         userQuizzes, publicQuizzes, questions, choices, quiz,
       } = this.state;
+      console.log(choices, questions);
       return (
         <Component
           /* pass all other props that are being passed to this component forward */

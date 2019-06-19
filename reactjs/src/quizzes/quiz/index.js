@@ -13,6 +13,9 @@ class Quiz extends React.Component {
 
   render() {
     const { questions, choices } = this.props;
+    choices.map((choice) => {
+      console.log(choice);
+    });
     return (
       <React.Fragment>
         <h1 className={styles.heading}>Quiz Away!</h1>
@@ -25,6 +28,7 @@ class Quiz extends React.Component {
                   // eslint-disable-next-line array-callback-return
                   // eslint-disable-next-line consistent-return
                   choices.map((choice) => {
+                    console.log(choice);
                     if (choice.questionId === question.id) {
                       return (
                         <li className={styles.list__item} key={choice.id}>

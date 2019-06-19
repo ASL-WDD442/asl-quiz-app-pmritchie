@@ -11,6 +11,7 @@ import QuestionForm from './forms/question';
 import QuizDetail from './quizzes/detail';
 import QuizForm from './forms/quiz';
 import QuestionDetail from './questions/detail';
+import ChoiceForm from './forms/choice';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class App extends Component {
@@ -33,6 +34,10 @@ class App extends Component {
               <Route path="/admin/questions/new/:quizId" exact component={QuestionForm} />
               <Route path="/admin/questions/edit/:id" exact component={QuestionForm} />
               <Route path="/admin/questions/:id" exact component={QuestionDetail} />
+            </Switch>
+            <Switch>
+              <Route path="/admin/choices/new/:questionId" exact component={ChoiceForm} />
+              <Route path="/admin/choices/edit/:id" exact component={ChoiceForm} />
             </Switch>
           </main>
         </div>

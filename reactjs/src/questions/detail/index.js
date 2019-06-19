@@ -15,21 +15,25 @@ class QuestionDetail extends React.Component {
     getQuestion(id);
   }
 
+  delete = async () => {
+    const { deleteQuestion, question: { id } } = this.props;
+    await deleteQuestion(id);
+  }
+
   render() {
     const { question, choices } = this.props;
-    console.log(question);
     return (
       <React.Fragment>
         <h1 className={styles.heading}>{question.title}</h1>
         <Link url={`/admin/questions/edit/${question.id}`} title="Edit" icon="fa-edit" />
         <span onClick={this.delete} role="presentation">
-          <Link url="/admin/quizzes/" title="Delete" icon="fa-trash" />
+          <Link url={`/admin/quizzes/${question.quizId}`} title="Delete" icon="fa-trash" />
         </span>
         <ul className={styles.list}>
           {choices.map(choice => (
             <li className={styles.question__item} key={choice.id}>
               <span className={styles.list__item__title}>{choice.value}</span>
-              <Link url={`/admin/choices/${choice.id}`} title="View" icon="fa-eye" />
+              <Link url={`/admin/choices/edit/${choice.id}`} title="Edit" icon="fa-edit" />
               <Link url={`/admin/choices/delete/${choice.id}`} title="Delete" icon="fa-trash" className="secondary__link" />
             </li>
           ))}
@@ -42,9 +46,14 @@ class QuestionDetail extends React.Component {
 }
 
 QuestionDetail.propTypes = {
-  question: PropTypes.shape({ title: PropTypes.string, id: PropTypes.string }),
+  question: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.string,
+    quizId: PropTypes.string,
+  }),
   choices: PropTypes.arrayOf(PropTypes.object),
   getQuestion: PropTypes.func.isRequired,
+  deleteQuestion: PropTypes.func.isRequired,
   match: RRPropTypes.match.isRequired,
 };
 

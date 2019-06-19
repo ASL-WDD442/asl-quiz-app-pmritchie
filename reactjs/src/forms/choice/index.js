@@ -14,16 +14,17 @@ class ChoiceForm extends React.Component {
 
   componentDidMount() {
     const { getChoice, match: { params: { id } } } = this.props;
+    console.log(id);
     if (id) getChoice(id);
   }
 
   handleInputChange = (event) => {
     // pull the name of the input and value of input out of the event object
-    const { target: { name, value } } = event;
+    const { target: { name, type } } = event;
     // update the state to a key of the name of the input and value of the value of the input
     // ex: type: 'incorrect'
     this.setState({
-      [name]: value,
+      [name]: type,
     });
   }
 
@@ -36,11 +37,7 @@ class ChoiceForm extends React.Component {
     const { value, type = 'correct' } = this.state;
     // get the query params from the url
     const queryParams = new URLSearchParams(location.search);
-
-    // get the questionId from query params
     const questionId = queryParams.get('questionId');
-
-
     await saveChoice({
       id, questionId, value, type,
     });
@@ -63,18 +60,18 @@ class ChoiceForm extends React.Component {
     const {
       // get the value from the state and if it doesn't exist use the prop
       value = defaultValue,
-      type = defaultValue,
+      type = defaultType,
     } = this.state;
 
     return (
       <React.Fragment>
-        <h1 className={styles.heading}>{id ? 'Edit question' : 'New question'}</h1>
+        <h1 className={styles.heading}>{id ? 'Edit choice' : 'New choice'}</h1>
         <form method="POST" className={styles.form} onSubmit={this.save}>
           <label className={styles.form__label} htmlFor="title">
             <span>Choice Value</span>
             <input
               type="text"
-              name="title"
+              name="value"
               value={value}
               className={styles.form__input}
               id="title"

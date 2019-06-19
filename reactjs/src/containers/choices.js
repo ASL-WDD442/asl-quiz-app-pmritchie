@@ -9,8 +9,7 @@ export default function container(Component) {
     }
 
     getChoice = async (id) => {
-      const choice = await API.get(`/choices/?choiceId=${id}`);
-      console.log(choice);
+      const choice = await API.get(`choices/${id}`);
       this.setState({ choice });
     }
 

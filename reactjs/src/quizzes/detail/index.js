@@ -33,7 +33,6 @@ class QuizDetail extends React.Component {
             <li className={styles.question__item} key={question.id}>
               <span className={styles.list__item__title}>{question.title}</span>
               <Link url={`/admin/questions/${question.id}`} title="View" icon="fa-eye" />
-              <Link url={`/admin/questions/delete/${question.id}`} title="Delete" icon="fa-trash" className="secondary__link" />
             </li>
           ))}
         </ul>

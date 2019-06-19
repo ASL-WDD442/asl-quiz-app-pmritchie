@@ -12,8 +12,6 @@ export default function container(Component) {
     getQuestion = async (id) => {
       const question = await API.get(`/questions/${id}`);
       const choices = await API.get(`/choices/?questionId=${id}`);
-      console.log(question);
-      console.log(choices);
       this.setState({ question, choices });
     }
 

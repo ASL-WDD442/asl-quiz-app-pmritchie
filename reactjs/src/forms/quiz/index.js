@@ -34,7 +34,6 @@ class QuizForm extends React.Component {
     const { quiz: { id }, saveQuiz, history } = this.props;
     const { name, type = 'public' } = this.state;
     const data = await saveQuiz({ id, name, type });
-    console.log(data);
     history.push(`/admin/quizzes/${data.id}`);
   }
 
