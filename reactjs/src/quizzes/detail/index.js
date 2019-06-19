@@ -14,18 +14,26 @@ class QuizDetail extends React.Component {
     getOneQuiz(id);
   }
 
+  delete = async () => {
+    const { deleteQuiz, quiz: { id } } = this.props;
+    await deleteQuiz(id);
+  }
+
   render() {
     const { quiz, questions } = this.props;
     return (
       <React.Fragment>
         <h1 className={styles.heading}>{quiz.name}</h1>
-        <Link url={`/admin/quizzes/edit/${quiz.id}`} title="Edit" icon="fa-edit" />
+        <Link url={`/admin/quizzes/edit/${quiz.id}`} title="Edit" icon="fa-edit" className="secondary__link" />
+        <span onClick={this.delete} role="presentation">
+          <Link url="/admin/quizzes/" title="Delete" icon="fa-trash" />
+        </span>
         <ul className={styles.list}>
           {questions.map(question => (
             <li className={styles.question__item} key={question.id}>
               <span className={styles.list__item__title}>{question.title}</span>
               <Link url={`/admin/questions/${question.id}`} title="View" icon="fa-eye" />
-              <Link url={`/admin/quizzes/delete/${question.id}`} title="Delete" icon="fa-trash" className="secondary__link" />
+              <Link url={`/admin/questions/delete/${question.id}`} title="Delete" icon="fa-trash" className="secondary__link" />
             </li>
           ))}
         </ul>
@@ -41,6 +49,7 @@ QuizDetail.propTypes = {
   questions: PropTypes.arrayOf(PropTypes.object),
   getOneQuiz: PropTypes.func.isRequired,
   match: RRPropTypes.match.isRequired,
+  deleteQuiz: PropTypes.func.isRequired,
 };
 
 QuizDetail.defaultProps = {

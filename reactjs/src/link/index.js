@@ -18,7 +18,7 @@ function Link({
 }
 
 Link.propTypes = {
-  url: PropTypes.objectOf(PropTypes.sting).isRequired,
+  url: PropTypes.string.isRequired,
   title: PropTypes.string,
   icon: PropTypes.string,
   className: PropTypes.string,

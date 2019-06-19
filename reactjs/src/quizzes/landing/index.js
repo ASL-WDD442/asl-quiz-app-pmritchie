@@ -1,7 +1,7 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import Link from '../../link';
 import styles from '../styles.module.css';
 import QuizContainer from '../../containers/quizzes';
 
@@ -22,7 +22,7 @@ class Landing extends React.Component {
           {publicQuizzes.map(quiz => (
             <li className={styles.list__item} key={quiz.id}>
               <span className={styles.list__item__title}>{quiz.name}</span>
-              <Link to={`/quiz/${quiz.id}`} title="view">View</Link>
+              <Link url={`/quiz/${quiz.id}`} title="view">View</Link>
             </li>
           ))}
         </ul>

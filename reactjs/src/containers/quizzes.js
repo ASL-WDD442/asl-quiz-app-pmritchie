@@ -12,6 +12,10 @@ export default function container(Component) {
       quiz: {},
     }
 
+    deleteQuiz = async (id) => {
+      await API.delete(`/quizzes/${id}`);
+    }
+
     getPublicQuizzes = async () => {
       const publicQuizzes = await API.get('/quizzes/public');
       this.setState({ publicQuizzes });
@@ -23,8 +27,7 @@ export default function container(Component) {
     }
 
     getOneQuiz = async (id) => {
-      const quizArray = await API.get(`/quizzes/?id=${id}`);
-      const quiz = { id: quizArray[0].id, name: quizArray[0].name };
+      const quiz = await API.get(`/quizzes/${id}`);
       const questions = await API.get(`/questions/?quizId=${id}`);
       this.setState({ quiz, questions });
     }
@@ -37,6 +40,14 @@ export default function container(Component) {
         choices.push(getChoices);
       });
       this.setState({ questions, choices });
+    }
+
+
+    saveQuiz = async (quiz) => {
+      if (quiz.id) {
+        return API.put(`/quizzes/${quiz.id}`, quiz);
+      }
+      return API.post('/quizzes', quiz);
     }
 
     render() {
@@ -52,6 +63,8 @@ export default function container(Component) {
           choices={choices}
           userQuizzes={userQuizzes}
           publicQuizzes={publicQuizzes}
+          deleteQuiz={this.deleteQuiz}
+          saveQuiz={this.saveQuiz}
           getOneQuiz={this.getOneQuiz}
           getQuizQuestions={this.getQuizQuestions}
           getUserQuizzes={this.getUserQuizzes}

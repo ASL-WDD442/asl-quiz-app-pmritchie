@@ -1,31 +1,73 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
+import RRPropTypes from 'react-router-prop-types';
 import styles from '../styles.module.css';
 import QuestionContainer from '../../containers/questions';
 
 
 class QuestionForm extends React.Component {
+  state = {
+    title: undefined,
+  }
+
+  componentDidMount() {
+    const { getQuestion, match: { params: { id } } } = this.props;
+    if (id) getQuestion(id);
+  }
+
   handleInputChange = (event) => {
     // pull the name of the input and value of input out of the event object
-    const { target: { title, value } } = event;
+    const { target: { name, value } } = event;
     // update the state to a key of the name of the input and value of the value of the input
-    // ex: type: 'private'
+    // ex: type: 'incorrect'
     this.setState({
-      [title]: value,
+      [name]: value,
     });
+  }
+
+  save = async (event) => {
+    // don't actually submit the form through the browser
+    event.preventDefault();
+    const {
+      question: { id }, saveQuestion, history, location,
+    } = this.props;
+    const { value } = this.state;
+    // get the query params from the url
+
+    const queryParams = new URLSearchParams(location.search);
+
+    // get the quizId from query params
+    const quizId = queryParams.get('');
+
+
+    await saveQuestion({ id, quizId, value });
+    history.push(`/admin/quizzes/${quizId}`);
+  }
+
+  delete = async () => {
+    const { deleteQuestion, question: { id } } = this.props;
+    await deleteQuestion(id);
   }
 
   render() {
     const {
-      question: { id, title, type },
+      question: {
+        id,
+        title: defaultValue = '',
+      },
     } = this.props;
+    const {
+      // get the value from the state and if it doesn't exist use the prop
+      title = defaultValue,
+    } = this.state;
+
     return (
       <React.Fragment>
         <h1 className={styles.heading}>{id ? 'Edit question' : 'New question'}</h1>
-        <form method="POST" className={styles.form}>
+        <form method="POST" className={styles.form} onSubmit={this.save}>
           <label className={styles.form__label} htmlFor="title">
-            <span>Quiz Name</span>
+            <span>Question Title</span>
             <input
               type="text"
               name="title"
@@ -34,34 +76,6 @@ class QuestionForm extends React.Component {
               id="title"
               onChange={this.handleInputChange}
             />
-          </label>
-
-          <label className={styles.form__label__inline} htmlFor="public">
-            <span>Quiz Type</span>
-            <label className={styles.form__label__inline} htmlFor="public">
-              <input
-                type="radio"
-                name="type"
-                value="public"
-                checked={type === 'public'}
-                className={styles.form__input__radio}
-                id="public"
-                onChange={this.handleInputChange}
-              />
-              <span>Public</span>
-            </label>
-            <label className={styles.form__label__inline} htmlFor="private">
-              <input
-                type="radio"
-                name="type"
-                value="private"
-                checked={type === 'private'}
-                className={styles.form__input__radio}
-                id="private"
-                onChange={this.handleInputChange}
-              />
-              <span>Private</span>
-            </label>
           </label>
           <button type="submit" className={styles.button}>Save</button>
         </form>
@@ -75,8 +89,13 @@ QuestionForm.propTypes = {
   question: PropTypes.shape({
     id: PropTypes.string,
     title: PropTypes.string,
-    type: PropTypes.string,
   }),
+  saveQuestion: PropTypes.func.isRequired,
+  getQuestion: PropTypes.func.isRequired,
+  deleteQuestion: PropTypes.func.isRequired,
+  history: RRPropTypes.history.isRequired,
+  location: RRPropTypes.location.isRequired,
+  match: RRPropTypes.match.isRequired,
 };
 
 QuestionForm.defaultProps = {
