@@ -27,6 +27,9 @@ export default function container(Component) {
       await API.delete(`/questions/${id}`);
     }
 
+    deleteChoice = async (id) => {
+      await API.delete(`/choices/${id}`);
+    }
 
     render() {
       const { question, choices } = this.state;
@@ -36,6 +39,7 @@ export default function container(Component) {
           {...this.props}
           question={question}
           choices={choices}
+          deleteChoice={this.deleteChoice}
           getQuestion={this.getQuestion}
           saveQuestion={this.saveQuestion}
           deleteQuestion={this.deleteQuestion}

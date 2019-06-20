@@ -1,10 +1,10 @@
 .list {
   padding: 20px 20px;
   margin: 20px 20px;
-  border: 1px solid var(--border-color);
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-content: center;
 }
 .list__item {
     display: flex;
@@ -142,4 +142,40 @@
     backdrop-filter: blur(5px);
     align-self: center;
     margin-top: 3rem;
+  }
+  .choices__container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 20rem;
+    height: inherit;
+    justify-content: space-between;
+  }
+  .choice__button {
+    font-family: var(--secondary-font-family);
+    font-size: 18px;
+    text-transform: uppercase;
+    height: 2rem;
+    width: inherit;
+    margin: .5rem;
+    color: white;
+    background-color: var(--primary-color);
+    backdrop-filter: blur(5px);
+    align-self: center;
+    align-content: center;
+  }
+  .quiz__list__item {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0px 0px 5px 5px rgba(247, 231, 141, 0.5);
+    justify-content: space-between;
+    align-items: center;
+    margin: 1rem;
+    height: 20rem;
+    width: 20rem;
+    background-color: rgba(255, 255, 255, 0.838);
+    backdrop-filter: blur(25px);
+    font-family: 'Francois One', sans-serif;
   }

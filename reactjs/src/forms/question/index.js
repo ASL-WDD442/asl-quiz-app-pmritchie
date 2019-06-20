@@ -30,19 +30,12 @@ class QuestionForm extends React.Component {
     // don't actually submit the form through the browser
     event.preventDefault();
     const {
-      question: { id }, saveQuestion, history, location,
+      question: { id }, saveQuestion, history, match: { params: { quizId } },
     } = this.props;
-    const { value } = this.state;
-    // get the query params from the url
+    const { title } = this.state;
+    await saveQuestion({ id, quizId, title });
 
-    const queryParams = new URLSearchParams(location.search);
-
-    // get the quizId from query params
-    const quizId = queryParams.get('');
-
-
-    await saveQuestion({ id, quizId, value });
-    history.push(`/admin/quizzes/${quizId}`);
+    if (quizId) { history.push(`/admin/quizzes/${quizId}`); } else { history.push(`/admin/questions/${id}`); }
   }
 
   delete = async () => {
@@ -94,7 +87,6 @@ QuestionForm.propTypes = {
   getQuestion: PropTypes.func.isRequired,
   deleteQuestion: PropTypes.func.isRequired,
   history: RRPropTypes.history.isRequired,
-  location: RRPropTypes.location.isRequired,
   match: RRPropTypes.match.isRequired,
 };
 

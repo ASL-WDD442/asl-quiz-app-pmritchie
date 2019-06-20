@@ -20,11 +20,11 @@ class ChoiceForm extends React.Component {
 
   handleInputChange = (event) => {
     // pull the name of the input and value of input out of the event object
-    const { target: { name, type } } = event;
+    const { target: { name, value } } = event;
     // update the state to a key of the name of the input and value of the value of the input
     // ex: type: 'incorrect'
     this.setState({
-      [name]: type,
+      [name]: value,
     });
   }
 
@@ -32,16 +32,14 @@ class ChoiceForm extends React.Component {
     // don't actually submit the form through the browser
     event.preventDefault();
     const {
-      choice: { id }, saveChoice, history, location,
+      choice: { id }, saveChoice, history, match: { params: { questionId } },
     } = this.props;
-    const { value, type = 'correct' } = this.state;
+    const { value, type } = this.state;
     // get the query params from the url
-    const queryParams = new URLSearchParams(location.search);
-    const questionId = queryParams.get('questionId');
     await saveChoice({
       id, questionId, value, type,
     });
-    history.push(`/admin/questions/${questionId}`);
+    if (questionId) { history.push(`/admin/questions/${questionId}`); } else { history.push('/'); }
   }
 
   delete = async () => {
@@ -119,7 +117,6 @@ ChoiceForm.propTypes = {
   getChoice: PropTypes.func.isRequired,
   deleteChoice: PropTypes.func.isRequired,
   history: RRPropTypes.history.isRequired,
-  location: RRPropTypes.location.isRequired,
   match: RRPropTypes.match.isRequired,
 };
 

@@ -13,30 +13,24 @@ class Quiz extends React.Component {
 
   render() {
     const { questions, choices } = this.props;
-    choices.map((choice) => {
-      console.log(choice);
-    });
     return (
       <React.Fragment>
         <h1 className={styles.heading}>Quiz Away!</h1>
         <ul className={styles.list}>
           {questions.map(question => (
-            <li className={styles.list__item} key={question.id}>
+            <li className={styles.quiz__list__item} key={question.id}>
               <span className={styles.list__item__title}>{question.title}</span>
-
-              {
-                  // eslint-disable-next-line array-callback-return
-                  // eslint-disable-next-line consistent-return
+              <div className={styles.choices__container}>
+                {
                   choices.map((choice) => {
-                    console.log(choice);
                     if (choice.questionId === question.id) {
                       return (
-                        <li className={styles.list__item} key={choice.id}>
-                          <span className={styles.list__item__title}>{choice.value}</span>
-                        </li>
+                        <button type="button" className={styles.choice__button} key={choice.id}>{choice.value}</button>
                       );
                     }
+                    return null;
                   })}
+              </div>
             </li>
           ))}
         </ul>
@@ -54,7 +48,6 @@ Quiz.propTypes = {
 };
 
 Quiz.defaultProps = {
-
 };
 
 export default QuizContainer(Quiz);

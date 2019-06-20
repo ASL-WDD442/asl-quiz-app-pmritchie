@@ -7,6 +7,11 @@ import AuthContainer from '../containers/auth';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Login extends React.Component {
+  state = {
+    username: '',
+    password: '',
+  }
+
   componentDidMount() {
     const { location, verifySlackCode } = this.props;
     // get the query params from the url query string
@@ -17,6 +22,20 @@ class Login extends React.Component {
     if (code) verifySlackCode(code);
   }
 
+  handleInputChange = (event) => {
+    const { target: { name, value } } = event;
+    this.setState({
+      [name]: value,
+    });
+  }
+
+  loggin = async (event) => {
+    event.preventDefault();
+    const { username, password } = this.state;
+    const { login } = this.props;
+    console.log(username, password);
+    await login(username, password);
+  }
 
   render() {
     const { redirectToSlack, loggedIn, errors } = this.props;
@@ -25,14 +44,14 @@ class Login extends React.Component {
     return (
       <React.Fragment>
         <h1 className={styles.heading}>Login</h1>
-        <form method="POST" className={styles.form}>
+        <form method="POST" className={styles.form} onSubmit={this.loggin}>
           <label className={styles.form__label} htmlFor="username">
             <span>Username</span>
-            <input type="email" name="username" className={styles.form__input} />
+            <input type="email" name="username" onChange={this.handleInputChange} className={styles.form__input} />
           </label>
           <label className={styles.form__label} htmlFor="password">
             <span>Password</span>
-            <input type="password" name="password" className={styles.form__input} />
+            <input type="password" name="password" onChange={this.handleInputChange} className={styles.form__input} />
           </label>
           <button type="submit" className={styles.button}>Login</button>
           {errors
@@ -56,6 +75,7 @@ class Login extends React.Component {
 Login.propTypes = {
   loggedIn: PropTypes.bool,
   redirectToSlack: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
   verifySlackCode: PropTypes.func.isRequired,
   location: RRPropTypes.location.isRequired,
   errors: PropTypes.arrayOf(PropTypes.array),

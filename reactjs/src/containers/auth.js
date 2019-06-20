@@ -12,6 +12,11 @@ export default function container(Component) {
       this.setState({ loggedIn: false });
     }
 
+    login = async (username, password) => {
+      const { pass, loggedIn } = await API.post('/auth/login', { username, password });
+      localStorage.setItem('token', pass);
+      this.setState({ loggedIn });
+    }
 
     verifySlackCode = async (code) => {
       const { token, loggedIn } = await API.post('/auth/slack', { code, url: process.env.REACT_APP_CALLBACK_URL });
@@ -35,6 +40,7 @@ export default function container(Component) {
           {...this.props}
           loggedIn={loggedIn}
           logout={this.logout}
+          login={this.login}
           redirectToSlack={this.redirectToSlack}
           verifySlackCode={this.verifySlackCode}
         />

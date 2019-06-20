@@ -20,8 +20,13 @@ class QuestionDetail extends React.Component {
     await deleteQuestion(id);
   }
 
+  deleteChoice = async (id) => {
+    const { deleteChoice } = this.props;
+    await deleteChoice(id);
+  }
+
   render() {
-    const { question, choices } = this.props;
+    const { question, choices, match: { params: { id } } } = this.props;
     return (
       <React.Fragment>
         <h1 className={styles.heading}>{question.title}</h1>
@@ -34,7 +39,9 @@ class QuestionDetail extends React.Component {
             <li className={styles.question__item} key={choice.id}>
               <span className={styles.list__item__title}>{choice.value}</span>
               <Link url={`/admin/choices/edit/${choice.id}`} title="Edit" icon="fa-edit" />
-              <Link url={`/admin/choices/delete/${choice.id}`} title="Delete" icon="fa-trash" className="secondary__link" />
+              <span onClick={() => this.deleteChoice(choice.id)} role="presentation">
+                <Link url={`/admin/questions/${id}`} title="Delete" icon="fa-trash" />
+              </span>
             </li>
           ))}
         </ul>
@@ -54,6 +61,7 @@ QuestionDetail.propTypes = {
   choices: PropTypes.arrayOf(PropTypes.object),
   getQuestion: PropTypes.func.isRequired,
   deleteQuestion: PropTypes.func.isRequired,
+  deleteChoice: PropTypes.func.isRequired,
   match: RRPropTypes.match.isRequired,
 };
 
