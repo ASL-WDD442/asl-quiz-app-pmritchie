@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Link from '../../link';
 import styles from '../styles.module.css';
 import QuizContainer from '../../containers/quizzes';
-
+import ListContainer from './container';
 
 class QuizList extends React.Component {
   componentDidMount() {
@@ -41,4 +41,4 @@ QuizList.propTypes = {
 QuizList.defaultProps = {
 };
 
-export default QuizContainer(QuizList);
+export default ListContainer(QuizList);

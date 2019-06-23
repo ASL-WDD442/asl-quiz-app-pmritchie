@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '../../link';
 import styles from '../styles.module.css';
-import QuizContainer from '../../containers/quizzes';
+import LandingContainer from './container';
 
 
 class Landing extends React.Component {
@@ -41,4 +41,4 @@ Landing.defaultProps = {
   publicQuizzes: [{ name: 'bob', id: 1 }, { name: 'george', id: 2 }],
 };
 
-export default QuizContainer(Landing);
+export default LandingContainer(Landing);

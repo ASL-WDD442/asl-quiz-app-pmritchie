@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Redirect } from 'react-router-dom';
 import RRPropTypes from 'react-router-prop-types';
 import styles from './styles.module.css';
-import AuthContainer from '../containers/auth';
+import LoginContainer from './container';
 
 // eslint-disable-next-line react/prefer-stateless-function
 class Login extends React.Component {
@@ -19,8 +19,18 @@ class Login extends React.Component {
     // get the code if there is one from slack
     const code = queryParams.get('code');
     // if there is code verify it
-    if (code) verifySlackCode(code);
+    if (code) {
+      verifySlackCode(code);
+    }
   }
+
+  redirectToSlack = () => {
+    let SLACK_URL = 'https://slack.com/oauth/authorize?';
+    SLACK_URL += `client_id=${process.env.REACT_APP_CLIENT_ID}`;
+    SLACK_URL += '&scope=identity.basic,identity.email';
+    SLACK_URL += `&redirect_uri=${process.env.REACT_APP_CALLBACK_URL}`;
+    window.location = SLACK_URL;
+  };
 
   handleInputChange = (event) => {
     const { target: { name, value } } = event;
@@ -38,7 +48,7 @@ class Login extends React.Component {
   }
 
   render() {
-    const { redirectToSlack, loggedIn, errors } = this.props;
+    const { loggedIn, errors } = this.props;
     if (loggedIn) return <Redirect to="/admin/quizzes" />;
 
     return (
@@ -61,7 +71,7 @@ class Login extends React.Component {
         </form>
 
         <div>
-          <button type="button" onClick={redirectToSlack} className={styles.button__slack}>
+          <button type="button" onClick={this.redirectToSlack} className={styles.button__slack}>
             <i className="fab fa-slack" />
             <span>Login with Slack</span>
           </button>
@@ -74,7 +84,6 @@ class Login extends React.Component {
 
 Login.propTypes = {
   loggedIn: PropTypes.bool,
-  redirectToSlack: PropTypes.func.isRequired,
   login: PropTypes.func.isRequired,
   verifySlackCode: PropTypes.func.isRequired,
   location: RRPropTypes.location.isRequired,
@@ -85,4 +94,4 @@ Login.defaultProps = {
   errors: [],
 };
 
-export default AuthContainer(Login);
+export default LoginContainer(Login);
