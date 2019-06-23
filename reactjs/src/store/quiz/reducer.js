@@ -1,5 +1,11 @@
 import {
-  SET_USER_QUIZZES, SET_PUBLIC_QUIZZES, SET_QUIZ, DELETE_QUIZ,
+  SET_USER_QUIZZES,
+  SET_PUBLIC_QUIZZES,
+  SET_QUIZ,
+  DELETE_QUIZ,
+  ADD_USER_QUIZ,
+  ADD_PUBLIC_QUIZ,
+  REMOVE_PUBLIC_QUIZ,
 } from '../actionTypes';
 import { arrayToObject, removeIdFromObject, removeIdFromArray } from '../_utils';
 
@@ -57,6 +63,31 @@ export default function quizzesReducer(state = startState, action) {
         ...state,
         byId: removeIdFromObject(id, state.byId),
         userQuizzes: removeIdFromArray(id, state.userQuizzes),
+        publicQuizzes: removeIdFromArray(id, state.publicQuizzes),
+      };
+    }
+    case ADD_USER_QUIZ: {
+      const { id } = payload;
+      // add id to userQuizzes
+      const allIds = [...state.userQuizzes, id];
+      return {
+        ...state,
+        userQuizzes: [...new Set(allIds)],
+      };
+    }
+    case ADD_PUBLIC_QUIZ: {
+      const { id } = payload;
+      const allIds = [...state.publicQuizzes, id];
+      return {
+        ...state,
+        // using Set here to make sure no duplicates in array
+        publicQuizzes: [...new Set(allIds)],
+      };
+    }
+    case REMOVE_PUBLIC_QUIZ: {
+      const { id } = payload;
+      return {
+        ...state,
         publicQuizzes: removeIdFromArray(id, state.publicQuizzes),
       };
     }

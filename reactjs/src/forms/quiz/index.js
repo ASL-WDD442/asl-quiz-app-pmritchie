@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RRPropTypes from 'react-router-prop-types';
 import styles from '../styles.module.css';
-import QuizContainer from '../../containers/quizzes';
+import QuizFormContainer from './container';
 
 
 class QuizForm extends React.Component {
@@ -14,8 +14,9 @@ class QuizForm extends React.Component {
 
     componentDidMount() {
       // get the id from the route params
-      const { getOneQuiz, match: { params: { id } } } = this.props;
-      if (id) getOneQuiz(id);
+      const { getQuiz, match: { params: { id } } } = this.props;
+      console.log(id);
+      if (id) getQuiz(id);
     }
 
   handleInputChange = (event) => {
@@ -31,10 +32,13 @@ class QuizForm extends React.Component {
   save = async (event) => {
     // don't actually submit the form through the browser
     event.preventDefault();
-    const { quiz: { id }, saveQuiz, history } = this.props;
-    const { name, type = 'public' } = this.state;
-    const data = await saveQuiz({ id, name, type });
-    history.push(`/admin/quizzes/${data.id}`);
+    const { quiz: { id }, addQuiz, history } = this.props;
+    console.log(id);
+    const { name, type } = this.state;
+    const data = await addQuiz({ id, name, type });
+    console.log(data);
+    if (data.id) history.push(`/admin/quizzes/${data.id}`);
+    else history.push('/admin/quizzes');
   }
 
   render() {
@@ -105,8 +109,8 @@ QuizForm.propTypes = {
     name: PropTypes.string,
     type: PropTypes.string,
   }),
-  saveQuiz: PropTypes.func.isRequired,
-  getOneQuiz: PropTypes.func.isRequired,
+  addQuiz: PropTypes.func.isRequired,
+  getQuiz: PropTypes.func.isRequired,
   history: RRPropTypes.history.isRequired,
   match: RRPropTypes.match.isRequired,
 };
@@ -115,4 +119,4 @@ QuizForm.defaultProps = {
   quiz: {},
 };
 
-export default QuizContainer(QuizForm);
+export default QuizFormContainer(QuizForm);

@@ -3,3 +3,6 @@ export const SET_USER_QUIZZES = 'SET_USER_QUIZZES';
 export const SET_PUBLIC_QUIZZES = 'SET_PUBLIC_QUIZZES';
 export const SET_QUIZ = 'SET_QUIZ';
 export const DELETE_QUIZ = 'DELETE_QUIZ';
+export const ADD_USER_QUIZ = 'ADD_USER_QUIZ';
+export const ADD_PUBLIC_QUIZ = 'ADD_PUBLIC_QUIZ';
+export const REMOVE_PUBLIC_QUIZ = 'REMOVE_PUBLIC_QUIZ';
