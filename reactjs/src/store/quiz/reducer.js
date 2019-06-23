@@ -1,5 +1,7 @@
-import { SET_USER_QUIZZES, SET_PUBLIC_QUIZZES } from '../actionTypes';
-import { arrayToObject } from '../_utils';
+import {
+  SET_USER_QUIZZES, SET_PUBLIC_QUIZZES, SET_QUIZ, DELETE_QUIZ,
+} from '../actionTypes';
+import { arrayToObject, removeIdFromObject, removeIdFromArray } from '../_utils';
 
 const startState = {
   byId: {},
@@ -37,6 +39,25 @@ export default function quizzesReducer(state = startState, action) {
         },
         publicQuizzes: publicQuizzes.map(quiz => quiz.id),
         publicQuizzesLoadedAt: Date.now(),
+      };
+    }
+    case SET_QUIZ: {
+      const { quiz } = payload;
+      return {
+        ...state,
+        byId: {
+          ...state.byId,
+          [quiz.id]: quiz,
+        },
+      };
+    }
+    case DELETE_QUIZ: {
+      const { id } = payload;
+      return {
+        ...state,
+        byId: removeIdFromObject(id, state.byId),
+        userQuizzes: removeIdFromArray(id, state.userQuizzes),
+        publicQuizzes: removeIdFromArray(id, state.publicQuizzes),
       };
     }
     default: return state;

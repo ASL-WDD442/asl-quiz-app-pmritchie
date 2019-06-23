@@ -1,17 +1,15 @@
-/* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
 import RRPropTypes from 'react-router-prop-types';
 import Link from '../../link';
 import styles from '../styles.module.css';
-import QuizContainer from '../../containers/quizzes';
-
+import QuizContainer from './container';
 
 class QuizDetail extends React.Component {
   // when component mounts bring in the quiz info
   componentDidMount() {
-    const { getOneQuiz, match: { params: { id } } } = this.props;
-    getOneQuiz(id);
+    const { getQuiz, match: { params: { id } } } = this.props;
+    getQuiz(id);
   }
 
   delete = async () => {
@@ -46,7 +44,7 @@ class QuizDetail extends React.Component {
 QuizDetail.propTypes = {
   quiz: PropTypes.shape({ name: PropTypes.string, id: PropTypes.string }),
   questions: PropTypes.arrayOf(PropTypes.object),
-  getOneQuiz: PropTypes.func.isRequired,
+  getQuiz: PropTypes.func.isRequired,
   match: RRPropTypes.match.isRequired,
   deleteQuiz: PropTypes.func.isRequired,
 };
