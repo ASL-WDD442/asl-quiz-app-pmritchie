@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RRPropTypes from 'react-router-prop-types';
 import styles from '../styles.module.css';
-import QuestionContainer from '../../containers/questions';
+import QuestionFormContainer from './container';
 
 
 class QuestionForm extends React.Component {
@@ -36,11 +36,6 @@ class QuestionForm extends React.Component {
     await saveQuestion({ id, quizId, title });
 
     if (quizId) { history.push(`/admin/quizzes/${quizId}`); } else { history.push(`/admin/questions/${id}`); }
-  }
-
-  delete = async () => {
-    const { deleteQuestion, question: { id } } = this.props;
-    await deleteQuestion(id);
   }
 
   render() {
@@ -85,7 +80,6 @@ QuestionForm.propTypes = {
   }),
   saveQuestion: PropTypes.func.isRequired,
   getQuestion: PropTypes.func.isRequired,
-  deleteQuestion: PropTypes.func.isRequired,
   history: RRPropTypes.history.isRequired,
   match: RRPropTypes.match.isRequired,
 };
@@ -94,4 +88,4 @@ QuestionForm.defaultProps = {
   question: {},
 };
 
-export default QuestionContainer(QuestionForm);
+export default QuestionFormContainer(QuestionForm);

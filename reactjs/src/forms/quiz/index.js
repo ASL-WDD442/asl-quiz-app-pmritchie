@@ -15,7 +15,6 @@ class QuizForm extends React.Component {
     componentDidMount() {
       // get the id from the route params
       const { getQuiz, match: { params: { id } } } = this.props;
-      console.log(id);
       if (id) getQuiz(id);
     }
 
@@ -34,10 +33,10 @@ class QuizForm extends React.Component {
     event.preventDefault();
     const { quiz: { id }, addQuiz, history } = this.props;
     console.log(id);
-    const { name, type } = this.state;
+    const { name, type = 'public' } = this.state;
     const data = await addQuiz({ id, name, type });
     console.log(data);
-    if (data.id) history.push(`/admin/quizzes/${data.id}`);
+    if (data.id !== undefined) history.push(`/admin/quizzes/${data.id}`);
     else history.push('/admin/quizzes');
   }
 

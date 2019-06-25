@@ -3,7 +3,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Link from '../../link';
 import styles from '../styles.module.css';
-import QuizContainer from '../../containers/quizzes';
 import ListContainer from './container';
 
 class QuizList extends React.Component {

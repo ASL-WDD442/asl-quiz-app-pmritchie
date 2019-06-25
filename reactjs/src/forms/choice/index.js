@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import RRPropTypes from 'react-router-prop-types';
 import styles from '../styles.module.css';
-import ChoiceContainer from '../../containers/choices';
+import ChoiceContainer from './container';
 
 
 class ChoiceForm extends React.Component {
@@ -14,7 +14,6 @@ class ChoiceForm extends React.Component {
 
   componentDidMount() {
     const { getChoice, match: { params: { id } } } = this.props;
-    console.log(id);
     if (id) getChoice(id);
   }
 
@@ -32,19 +31,14 @@ class ChoiceForm extends React.Component {
     // don't actually submit the form through the browser
     event.preventDefault();
     const {
-      choice: { id }, saveChoice, history, match: { params: { questionId } },
+      choice: { id }, addChoice, history, match: { params: { questionId } },
     } = this.props;
     const { value, type } = this.state;
     // get the query params from the url
-    await saveChoice({
+    await addChoice({
       id, questionId, value, type,
     });
-    if (questionId) { history.push(`/admin/questions/${questionId}`); } else { history.push('/'); }
-  }
-
-  delete = async () => {
-    const { deleteChoice, choice: { id } } = this.props;
-    await deleteChoice(id);
+    if (questionId) { history.push(`/admin/questions/${questionId}`); } else { history.goBack(); }
   }
 
   render() {
@@ -113,9 +107,8 @@ ChoiceForm.propTypes = {
     value: PropTypes.string,
     type: PropTypes.string,
   }),
-  saveChoice: PropTypes.func.isRequired,
+  addChoice: PropTypes.func.isRequired,
   getChoice: PropTypes.func.isRequired,
-  deleteChoice: PropTypes.func.isRequired,
   history: RRPropTypes.history.isRequired,
   match: RRPropTypes.match.isRequired,
 };

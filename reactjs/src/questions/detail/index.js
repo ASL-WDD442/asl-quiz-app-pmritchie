@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import RRPropTypes from 'react-router-prop-types';
 import Link from '../../link';
 import styles from '../styles.module.css';
-import QuestionsContainer from '../../containers/questions';
+import QuestionsContainer from './container';
 
 
 class QuestionDetail extends React.Component {

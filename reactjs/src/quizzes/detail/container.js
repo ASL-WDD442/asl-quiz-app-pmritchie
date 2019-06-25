@@ -11,10 +11,17 @@ function mapStateToProps(state, props) {
         [id]: quiz,
       },
     },
+    questions: {
+      byQuizId: {
+        // set arry of questions per quiz
+        [id]: quizQuestions = [],
+      },
+      byId,
+    },
 
   } = state;
-
-  return { quiz };
+  const questions = quizQuestions.map(questionId => byId[questionId]);
+  return { quiz, questions };
 }
 
 // set the actions we need in this component
