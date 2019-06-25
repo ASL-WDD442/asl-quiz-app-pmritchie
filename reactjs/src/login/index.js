@@ -43,7 +43,6 @@ class Login extends React.Component {
     event.preventDefault();
     const { username, password } = this.state;
     const { login } = this.props;
-    console.log(username, password);
     await login(username, password);
   }
 

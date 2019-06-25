@@ -6,7 +6,6 @@ import { shouldLoad } from '../_utils';
 
 export const getQuestionChoices = questionId => async (dispatch, getState) => {
   const { choices: { questionLoadedAt: { [questionId]: loadedAt = 0 } } } = getState();
-  console.log(`choice actions getQuestionChoices >>>${questionId}`);
   if (!shouldLoad(loadedAt)) return;
   const choices = await API.get(`/choices?questionId=${questionId}`);
   dispatch({ type: SET_QUESTION_CHOICES, choices, questionId });
@@ -26,8 +25,8 @@ export const addChoice = choice => async (dispatch) => {
     dispatch({ type: SET_CHOICE, choice: { ...choice, ...updateChoice } });
   } else {
     const newChoice = await API.post('/choices', choice);
-    console.log(newChoice);
     // dispatch to add to array
+    console.log(`3${{ ...newChoice }}`);
     dispatch({ type: SET_CHOICE, choice: { ...choice, ...newChoice } });
     dispatch({ type: ADD_QUESTION_CHOICE, id: newChoice.id, questionId: newChoice.questionId });
   }

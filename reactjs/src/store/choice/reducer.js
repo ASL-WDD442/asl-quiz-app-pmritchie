@@ -32,7 +32,6 @@ export default function choiceReducer(state = startState, action) {
     }
     case SET_CHOICE: {
       const { choice } = payload;
-      console.log(choice);
       return {
         ...state,
         byId: {
@@ -43,7 +42,6 @@ export default function choiceReducer(state = startState, action) {
     }
     case ADD_QUESTION_CHOICE: {
       const { id, questionId } = payload;
-      console.log(`choice reducer question id>> ${questionId}`);
       const allIds = [...(state.byQuestionId[questionId] || []), id];
       return {
         ...state,

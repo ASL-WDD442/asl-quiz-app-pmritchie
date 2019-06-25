@@ -8,7 +8,6 @@ exports.getQuestionChoices = async (req, res) => {
 };
 
 exports.getOneById = async (req, res) => {
-  console.log('1');
   const { id } = req.params;
   const choice = await Choices.findByPk(id);
   if (!choice) {
@@ -19,9 +18,10 @@ exports.getOneById = async (req, res) => {
 };
 
 exports.createChoice = async (req, res) => {
-  console.log('2');
+  console.log('1');
   const { value, type, questionId } = req.body;
   try {
+    console.log('2');
     const newChoice = await Choices.create({ value, type, questionId });
     console.log(newChoice);
     res.json({ id: newChoice.id });

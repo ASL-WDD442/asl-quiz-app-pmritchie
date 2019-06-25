@@ -32,10 +32,8 @@ class QuizForm extends React.Component {
     // don't actually submit the form through the browser
     event.preventDefault();
     const { quiz: { id }, addQuiz, history } = this.props;
-    console.log(id);
     const { name, type = 'public' } = this.state;
     const data = await addQuiz({ id, name, type });
-    console.log(data);
     if (data.id !== undefined) history.push(`/admin/quizzes/${data.id}`);
     else history.push('/admin/quizzes');
   }
