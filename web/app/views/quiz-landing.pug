@@ -1,0 +1,12 @@
+extends _layout
+include _includes/link_mixin
+block content
+    h1.heading= quiz.name
+    p Are you ready to be quizzed squiddy???
+    - var n = 1;
+    ul.list__column
+        for question in questions
+            li.list__item__quiz
+                span= n++
+                span.question__item__title= question.title
+    +link('/', 'Back to Main','', 'primary__link__button')
