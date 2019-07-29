@@ -1,4 +1,4 @@
-# Bravo Zulu
+# Squid Quiz
 
 This project is going to be a quiz app for general US Naval knowledge. For navy exams and qualifications such as Enlisted Surface Warefare Specialist(ESWS), sailors are tested on their knowledge of naval battles, traditions and standards. The idea behind this is that senior sailors would make quizzes for their junior sailors to prepare them for tests and examinations.  
 
