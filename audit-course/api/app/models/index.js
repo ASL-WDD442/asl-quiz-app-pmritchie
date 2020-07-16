@@ -1,6 +1,7 @@
 const uuid = require('uuid');
 const choices = require('./choices');
 const questions = require('./questions');
+const quizzes = require('./quizzes');
 
 class Model {
   constructor(data) {
@@ -48,4 +49,5 @@ class Model {
 module.exports = {
   Choices: new Model(choices),
   Questions: new Model(questions),
+  Quizzes: new Model(quizzes),
 };
