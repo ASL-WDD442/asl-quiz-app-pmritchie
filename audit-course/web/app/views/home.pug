@@ -1,0 +1,14 @@
+extends _layout
+include _includes/link_mixin
+block content
+  main.main_container
+  div.underlay
+  h1.heading Welcome to Squid Quiz
+  p An easier way to study and get promoted!
+  h2.heading Public Quizzes
+  ul.list
+    for quiz in quizzes
+      li.list__item
+        span.list__item__title= quiz.name
+        +link('/quiz/'+quiz.id, 'View', 'fa-eye')
+  +link('admin/quizzes/new', 'Create Your Own','fa-plus', 'primary__link__button')
