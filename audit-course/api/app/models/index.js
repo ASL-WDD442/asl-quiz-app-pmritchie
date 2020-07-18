@@ -1,4 +1,4 @@
-const uuid = require('uuid');
+const { v1: uuid } = require('uuid');
 const choices = require('./choices');
 const questions = require('./questions');
 const quizzes = require('./quizzes');
