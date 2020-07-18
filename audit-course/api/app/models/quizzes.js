@@ -1,12 +1,31 @@
-module.exports = [
-  {
-    id: 'ff548156-2c00-43ef-96a9-1b44a525158f',
-    name: 'Squid Quiz 1',
-    type: 'public',
-  },
-  {
-    id: '63396929-53dd-4122-9f43-12dd90a28e54',
-    name: 'Squid Quiz 2',
-    type: 'public',
-  },
-];
+module.exports = (sequelize, DataTypes) => {
+  const Quizzes = sequelize.define(
+    'Quizzes',
+    {
+      id: {
+        defaultValue: DataTypes.UUIDV4,
+        primaryKey: true,
+        type: DataTypes.UUID,
+      },
+      name: {
+        type: DataTypes.STRING,
+        validate: {
+          len: { args: [3, 500], msg: 'Quiz name must be 3 characters long' },
+        },
+      },
+      type: {
+        type: DataTypes.ENUM('public', 'private'),
+        validate: {
+          isIn: {
+            args: [['public', 'private']],
+            msg: 'Decision must be public or private',
+          },
+        },
+      },
+    }, {},
+  );
+  Quizzes.associate = (models) => {
+    Quizzes.hasMany(models.Questions, { foreignKey: 'quizId' });
+  };
+  return Quizzes;
+};

@@ -1,55 +1,49 @@
+// load in the choice model
 const { Choices } = require('../models');
 
-// get all the choices
-exports.getQuestionChoices = (req, res) => {
-  const { decisionId } = req.query;
-
-  const choices = Choices.findAll();
-
-  const questionChoices = choices.filter((choice) => choice.decisionId === decisionId);
-
-  res.json(questionChoices);
-};
-
-// get all the choices with a type of public
-exports.getPublic = (req, res) => {
-  const choices = Choices.findAll();
-  const publicChoices = choices.filter(
-    (choice) => choice.type === 'public',
-  );
-
+exports.getQuestionChoices = async (req, res) => {
+  const { questionId } = req.query;
+  const publicChoices = await Choices.findAll({ where: { questionId } });
   res.json(publicChoices);
 };
 
-exports.getOneById = (req, res) => {
+exports.getOneById = async (req, res) => {
   const { id } = req.params;
-
-  const choice = Choices.findbyPk(id);
-
+  const choice = await Choices.findByPk(id);
   if (!choice) {
     res.sendStatus(404);
+    return;
   }
   res.json(choice);
 };
 
-exports.createChoice = (req, res) => {
-  const { value, decisionId } = req.body;
-
-  const id = Choices.create({ value, decisionId });
-
-  res.json({ id });
+exports.createChoice = async (req, res) => {
+  const { value, type, questionId } = req.body;
+  try {
+    const newChoice = await Choices.create({ value, type, questionId });
+    res.json({ id: newChoice.id });
+  } catch (e) {
+    const errors = e.errors.map((err) => err.message);
+    res.status(400).json({ errors });
+  }
 };
 
-exports.updateChoice = (req, res) => {
+exports.updateChoice = async (req, res) => {
   const { id } = req.params;
-  const updatedChoices = Choices.update(req.body, id);
-  res.json(updatedChoices);
+  try {
+    const [, [updatedChoice]] = await Choices.update(req.body, {
+      where: { id },
+      returning: true,
+    });
+    res.json(updatedChoice);
+  } catch (e) {
+    const errors = e.errors.map((err) => err.message);
+    res.status(400).json({ errors });
+  }
 };
 
-exports.removeChoice = (req, res) => {
+exports.removeChoice = async (req, res) => {
   const { id } = req.params;
-
-  Choices.destroy(id);
-
+  await Choices.destroy({ where: { id } });
   res.sendStatus(200);
 };

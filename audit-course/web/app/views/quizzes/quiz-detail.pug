@@ -1,7 +1,7 @@
 extends ../_layout
 include ../_includes/link_mixin
 block content
-    h1.heading= quiz.name
+    h1.heading = quiz.name
     +link('/admin/quizzes/edit/'+quiz.id, 'Edit', 'icon = fa-edit')
     h2.heading Questions
     ul.list
