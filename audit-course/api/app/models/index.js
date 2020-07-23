@@ -19,7 +19,6 @@ fs
   .readdirSync(__dirname)
   .filter((file) => (file.indexOf('.') !== 0) && (file !== basename) && (file.slice(-3) === '.js'))
   .forEach((file) => {
-    console.log(file);
     // eslint-disable-next-line
     const model = require(path.join(__dirname, file))(
       sequelize,

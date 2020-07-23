@@ -1,9 +1,9 @@
 // load in the quiz model
 const { Quizzes } = require('../models');
 
+console.log(Quizzes);
 exports.getAll = (req, res) => {
   const quizzes = Quizzes.findAll();
-
   res.json(quizzes);
 };
 exports.getPublic = async (req, res) => {

@@ -1,5 +1,6 @@
 const { Questions } = require('../models');
 
+console.log(Questions);
 // get all the questions
 exports.getAll = (req, res) => {
   // run the find all function on the model
