@@ -1,12 +1,17 @@
 const { Questions } = require('../models');
 
-console.log(Questions);
 // get all the questions
 exports.getAll = (req, res) => {
   // run the find all function on the model
   const questions = Questions.findAll();
   // respond with json of the questions array
   res.json(questions);
+};
+
+exports.getQuizQuestions = async (req, res) => {
+  const { quizId } = req.query;
+  const publicQuestions = await Questions.findAll({ where: { quizId } });
+  res.json(publicQuestions);
 };
 
 // get all the questions with a type of public

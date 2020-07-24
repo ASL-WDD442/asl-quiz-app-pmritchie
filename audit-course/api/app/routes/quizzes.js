@@ -1,19 +1,23 @@
 // import the express router
 const router = require('express').Router();
-// import the Quiz controller
-const quizCtrl = require('../controllers/quizzes');
-// GET /quizzes route
-router.get('/', quizCtrl.getAll);
+// GET /quizzess route
+const quizzesCtrl = require('../controllers/quizzes');
+// import the protect middleware
+const protectedRoute = require('../utils/protectedRoute');
+// all rounters work here
+router.get('/public', quizzesCtrl.getPublic);
 
-router.get('/public', quizCtrl.getPublic);
+router.get('/', protectedRoute, quizzesCtrl.getUserQuizzes);
 
-router.get('/:id', quizCtrl.getOneById);
+router.get('/', quizzesCtrl.getAll);
 
-router.post('/', quizCtrl.createQuiz);
+router.post('/', protectedRoute, quizzesCtrl.createQuiz);
 
-router.put('/:id', quizCtrl.updateQuiz);
+router.get('/:id', quizzesCtrl.getOneById);
 
-router.delete('/:id', quizCtrl.removeQuiz);
+router.put('/:id', protectedRoute, quizzesCtrl.updateQuiz);
+
+router.delete('/:id', protectedRoute, quizzesCtrl.removeQuiz);
 
 // export the route from this file
 module.exports = router;

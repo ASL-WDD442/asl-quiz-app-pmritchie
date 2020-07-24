@@ -22,6 +22,7 @@ exports.newQuiz = async (req, res) => {
 exports.saveQuiz = async (req, res) => {
   const { name, type } = req.body;
   const { id } = req.params;
+
   // eslint-disable-next-line no-unused-vars
   let data = {};
   if (id) {

@@ -6,6 +6,7 @@ const morganDebug = require('morgan-debug');
 const quizRouter = require('./routes/quizzes');
 const questionRouter = require('./routes/questions');
 const choiceRouter = require('./routes/choices');
+const authRouter = require('./routes/auth');
 
 // create an express app
 const app = express();
@@ -17,6 +18,7 @@ app.use(morganDebug('api:request', 'dev'));
 app.use('/quizzes', quizRouter);
 app.use('/questions', questionRouter);
 app.use('/choices', choiceRouter);
+app.use('/auth', authRouter);
 
 // four params are required to mark this as a error handling middleware
 // the comment beloww this allows for eslint to not throw an error because
