@@ -1,0 +1,48 @@
+.main__container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-grow: 5;
+  background-color: var(--secondary-color);
+  background-image: -webkit-linear-gradient(35deg, var(--secondary-color) 50%, var(--secondaryShade-color) 50%);
+}
+
+.body {
+  margin: 1rem;
+}
+
+
+@import url('https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap');
+
+:root {
+  --default-font-family: Verdana, sans-serif;
+  --secondary-font-family: 'Francois One', sans-serif;
+  --default-font: 200 18px/1.25em var(--default-font-family);
+  --active-color: #6a92f0;
+  --primary-color: #19435C;
+  --secondary-color: #46C3FC;
+  --secondaryShade-color: #ffdc8b;
+  --text-color: #606060;
+  --light-text-color: #fdfdfd;
+  --background-color: #C5C5C5;
+  --border-color: #e6e6ea;
+  --secondary-background-color: #f4f4f8;
+  --error-color: #9c3848;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font: var(--secondary-font-family);
+}
