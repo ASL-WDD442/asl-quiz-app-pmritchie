@@ -3,6 +3,7 @@ const error = require('debug')('api:error');
 const express = require('express');
 const bodyParser = require('body-parser');
 const morganDebug = require('morgan-debug');
+const cors = require('cors');
 // routes
 const quizzesRouter = require('./routes/quizzes');
 const questionsRouter = require('./routes/questions');
@@ -10,6 +11,7 @@ const choicesRouter = require('./routes/choices');
 const authRouter = require('./routes/auth');
 // create an express app
 const app = express();
+app.use(cors());
 // checks to see if the content-type is json and parses it into req.body
 app.use(bodyParser.json());
 // log all requests
