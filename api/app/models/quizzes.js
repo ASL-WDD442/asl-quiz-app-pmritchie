@@ -28,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
   // eslint-disable-next-line func-names
   Quizzes.associate = function (models) {
     Quizzes.hasMany(models.Questions, { foreignKey: 'quizId' });
+    Quizzes.belongsTo(models.Users, { foreignKey: 'userId' });
   };
   return Quizzes;
 };

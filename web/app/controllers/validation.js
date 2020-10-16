@@ -27,6 +27,14 @@ const checks = {
     .withMessage('Choice value is required to be at least 1 characters or number'),
   questionId: check('questionId')
     .isUUID().withMessage('Id not valid, please go back try again'),
+  username: check('username')
+    .exists().withMessage('Do not forget your username')
+    .isLength(4)
+    .withMessage('make sure your username is at least 4 characters long'),
+  password: check('password')
+    .exists().withMessage('Do not forget your password')
+    .isLength(6)
+    .withMessage('make sure your password is at least 8 characters long'),
 };
 
 const checkForErrors = (req, res, next) => {
@@ -56,8 +64,10 @@ exports.validate = (method) => {
       return [checks.value, checks.correct, checkForErrors];
     }
     case 'editChoice': {
-      console.log('editChoice');
       return [checks.value, checks.correct, checks.questionId, checkForErrors];
+    }
+    case 'login': {
+      return [checks.username, checks.password, checkForErrors];
     }
 
     default: {
